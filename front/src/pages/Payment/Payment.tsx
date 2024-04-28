@@ -242,12 +242,12 @@ function Payment() {
 
                         <article id="user-data">
                             <div>
-                                <label htmlFor="">Nombre usuario</label>
-                                <input type="text" defaultValue={userData.name} />
+                                <label htmlFor="username">Nombre usuario</label>
+                                <input type="text" defaultValue={userData.name} id="username" />
                             </div>
                             <div>
-                                <label htmlFor="">Correo electrónico</label>
-                                <input type="email" defaultValue={userData.email} />
+                                <label htmlFor="useremail">Correo electrónico</label>
+                                <input type="email" defaultValue={userData.email} id="useremail" />
                             </div>
                         </article>
 
