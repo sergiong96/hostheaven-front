@@ -1,0 +1,157 @@
+@use '../../../styles/vars';
+
+#home-packages-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: 0 auto;
+
+    h2 {
+        text-align: center;
+    }
+
+    article {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+
+        div.package {
+
+            cursor: default;
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0px 1px 3px 1px black;
+            transition: all 0.5s;
+
+            hr {
+                width: 100%;
+                margin: 0;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            .package-header {
+                h3.name {
+                    padding: 0.5rem;
+                    text-align: center;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                }
+            }
+
+            .package-body {
+                padding: 1rem 0rem;
+
+                ul.characteristics {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                    margin: 0;
+                }
+
+                div.price {
+                    display: flex;
+                    justify-content: center;
+                    align-items: end;
+                    margin: 2rem 0 0 0;
+
+                    p {
+                        margin: 0;
+                    }
+
+                    input {
+                        pointer-events: none;
+                        width: 30%;
+                        border: none;
+                        text-align: end;
+                        background-color: inherit;
+                        font-size: 1.5rem;
+                        padding: 0;
+                        margin: 0;
+                    }
+                }
+            }
+
+
+            .btn-to-cart {
+                display: flex;
+                justify-content: center;
+                padding: 1rem;
+
+                button {
+                    padding: 0.6rem;
+                    font-weight: bolder;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    background-color: vars.$main-blue;
+                    border-radius: 1rem;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        transition: all 0.3s;
+                        color: white;
+                    }
+                }
+            }
+
+            &:hover {
+                transform: scale(1.04);
+                box-shadow: 0px 1px 15px 0px black;
+                transition: all 0.5s;
+            }
+        }
+
+        div.package[class$="Básico"] {
+            position: relative;
+            overflow: hidden;
+
+            .package-body {
+                background-color: lightskyblue;
+            }
+
+            &::before {
+                content: "Más Vendido";
+                position: absolute;
+                text-align: center;
+                top: 2rem;
+                left: -2.5rem;
+                width: 10rem;
+                transform: rotate(-45deg);
+                background-color: vars.$stars-color;
+            }
+        }
+    }
+
+
+    .btn-to-cart-custom {
+        margin: 2rem 0;
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        button {
+            padding: 0.6rem;
+            font-weight: bolder;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: vars.$main-blue;
+            border-radius: 1rem;
+
+            >a {
+                color: black;
+                text-decoration: none;
+                transition: all 0.3s;
+
+                &:hover {
+                    transition: all 0.3s;
+                    color: white;
+                }
+            }
+
+        }
+    }
+}

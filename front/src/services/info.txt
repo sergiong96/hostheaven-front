@@ -1,0 +1,2 @@
+Directorio donde se colocarán los servicios encargados de realizar peticiones al backend. 
+Aquí se definiran, pero los componentes llamarán a los métodos de estos servicios para obtener o volcar los datos necesarios.

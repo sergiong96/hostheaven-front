@@ -1,0 +1,2 @@
+Directorio donde se colocarán las páginas de la aplicación, las cuales no son más que componentes de mayor ámbito 
+que pueden tener, a su vez, otros componentes específicos.

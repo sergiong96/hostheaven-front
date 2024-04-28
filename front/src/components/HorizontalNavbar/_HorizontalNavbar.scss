@@ -1,0 +1,63 @@
+@use '../../styles/vars';
+
+#main-navBar {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    position: relative;
+    gap: 4rem;
+    z-index: 9999;
+    background-color: vars.$background-white;
+
+    i.fa-solid.fa-house {
+        font-size: 2rem;
+        position: absolute;
+        top: 0.5rem;
+        left: 1rem;
+        color: black;
+        transition: all 0.3s;
+
+        &:hover{
+            color: vars.$strong-red;
+            transition: all 0.3s;
+        }
+    }
+
+    >ul.outer-list {
+        display: flex;
+        gap: 4rem;
+
+
+        >li {
+            list-style-type: none;
+            cursor: pointer;
+            position: relative;
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 1.2rem;
+                height: 2px;
+                width: 0;
+                background-color: vars.$strong-red;
+                z-index: 9999;
+                transition: width 800ms;
+            }
+
+            &:hover::before {
+                width: 100%;
+                transition: width 800ms;
+            }
+
+
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+}

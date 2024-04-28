@@ -1,0 +1,164 @@
+@use '../../styles/vars';
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+main#aboutUs-page {
+    padding: 6rem 0;
+
+
+    section#about-company-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 80%;
+        margin: 0 auto;
+        border: 2px solid vars.$background-white;
+        border-bottom: none;
+        padding: 1rem 1rem 0;
+
+        img {
+            width: 30rem;
+            display: block;
+        }
+
+        >article {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+    }
+
+    section#company-numbers {
+        width: 100%;
+        margin: 0 auto;
+        height: fit-content;
+        background-color: vars.$main-blue;
+        padding: 1rem 0;
+
+        h3 {
+            font-family: "Permanent Marker", cursive !important;
+            text-align: center;
+            margin: 0 0 1rem 0;
+        }
+
+        >div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+
+            >div {
+                height: 5rem;
+
+                p {
+                    font-family: "Permanent Marker", cursive !important;
+                    text-align: center;
+                    margin: 0;
+                }
+
+                p:first-of-type {
+                    font-size: 1.1rem
+                }
+            }
+        }
+
+
+
+    }
+
+    section#about-team-container {
+        position: relative;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr;
+        width: 90%;
+        margin: 0 auto;
+        border: 2px solid vars.$background-white;
+        border-top: none;
+        padding: 0 1rem 8rem;
+
+        article:first-of-type {
+            grid-row: 1;
+            grid-column: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        article#rombhus-container {
+            grid-row: 1;
+            grid-column: 2;
+
+            img {
+                width: 8rem;
+                height: 8rem;
+                transform: rotate(-45deg);
+            }
+
+            span {
+                display: block;
+                transform: rotate(45deg);
+                width: 8rem;
+                height: 8rem;
+                overflow: hidden;
+            }
+
+            div {
+                display: flex;
+            }
+
+            div:nth-child(1) {
+                transform: translate(128px, 128px);
+            }
+
+            div:nth-child(2) {
+                transform: translate(64px, 64px);
+            }
+
+
+        }
+
+        article#logo-container {
+            position: absolute;
+            bottom: -5rem;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+
+            p {
+                position: relative;
+                z-index: 9999;
+                margin: 0;
+                font-family: "Permanent Marker", cursive !important;
+                font-size: 2rem;
+            }
+
+            p:first-of-type {
+                margin-left: 5rem;
+            }
+
+            img {
+                position: relative;
+                border-radius: 50%;
+                width: 10rem;
+                height: 10rem;
+                z-index: 9999;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 100vw;
+                background-color: black;
+                color: black;
+                height: 2px;
+            }
+
+        }
+
+
+    }
+
+}

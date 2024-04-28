@@ -1,0 +1,1 @@
+Directorio donde se colocarán los componentes generales y reutilizables de la aplicación.

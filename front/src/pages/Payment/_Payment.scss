@@ -1,0 +1,222 @@
+@use '../../styles/vars';
+
+main#payment-page {
+    padding: 5rem 0;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+
+
+        section {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-template-columns: auto auto;
+            align-items: center;
+            border: 3px solid vars.$background-white;
+            margin: 2rem 4rem;
+            padding: 2rem;
+
+            &>p {
+                grid-row: 1;
+                grid-column: 1/3;
+                text-align: start;
+                font-weight: 600;
+                font-size: 1.1rem;
+            }
+        }
+
+
+        section#period {
+            article {
+                grid-row: 2;
+                grid-column: 1/3;
+                display: flex;
+                justify-content: space-around;
+
+                >div {
+
+                    p {
+                        text-align: center;
+                        pointer-events: none;
+                    }
+
+                    >div:nth-child(1) {
+                        border: 1px solid gray;
+                        padding: 1rem 2rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+
+                        &:has(input[type=radio]:checked) {
+                            background-color: vars.$background-white;
+
+                            >p {
+                                font-weight: 600;
+                            }
+                        }
+
+                        >input[type=radio] {
+                            margin: 0 auto;
+                            display: block;
+                        }
+
+                    }
+
+                    >div:nth-child(2) {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        >p:first-of-type {
+                            text-decoration: underline;
+                        }
+
+                        input {
+                            width: 30%;
+                            border: none;
+                            text-align: end;
+                            border-top: 1px solid transparent;
+                            font-size: 1rem;
+                            padding: 0;
+                            pointer-events: none;
+                        }
+                    }
+
+                    >p {
+                        color: gray;
+                        margin: 0;
+                    }
+
+
+                }
+            }
+        }
+
+        section#payment-method {
+
+            label {
+                display: block;
+                width: 8rem;
+                padding: 0.3rem;
+            }
+
+            &>article {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                justify-self: center;
+
+                input {
+                    padding: 0.3rem;
+                }
+
+                div {
+                    display: flex;
+                    border-radius: 0.5rem;
+
+                    &:has(input[type=radio]:checked) {
+                        background-color: vars.$background-white;
+                    }
+                }
+            }
+
+            &>article:last-child {
+                div {
+                    gap: 0.5rem;
+                }
+            }
+        }
+
+
+        section#summary {
+
+            article {
+                justify-self: center;
+
+                div {
+                    display: flex;
+                }
+
+                ul {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 0.3rem;
+
+                    li {
+                        >span {
+                            background-color: rgb(243, 243, 166);
+                        }
+                    }
+                }
+            }
+
+
+
+            article#user-data {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                label {
+                    display: block;
+                    width: 10rem;
+                }
+
+                input {
+                    padding: 0.2rem;
+                }
+
+            }
+
+            article#package-data {
+                #final-price {
+
+                    margin-top: 4rem;
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                    }
+
+                    input {
+                        border-top: none;
+                        border-left: none;
+                        display: block;
+                        border-right: none;
+                        width: 25%;
+                        padding: 0.2rem 0.5rem;
+                        margin-left: 0.5rem;
+                        font-size: 1.3rem;
+                        text-align: center;
+                        background-color: rgb(243, 243, 166);;
+                    }
+
+
+                }
+            }
+        }
+
+        button {
+            width: 15rem;
+            margin: 0 auto;
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 2px solid vars.$main-blue;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.4s;
+
+            &:hover {
+                background-color: vars.$main-blue;
+                transform: scale(1.05);
+                box-shadow: 1px 1px 5px gray;
+                transition: all 0.4s;
+            }
+        }
+
+    }
+
+}

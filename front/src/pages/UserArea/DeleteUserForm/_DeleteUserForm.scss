@@ -1,0 +1,51 @@
+@use '../../../styles/vars';
+
+dialog#delete-dialog {
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+
+    >button {
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 2rem;
+        font-size: 1.5rem;
+        border: none;
+        cursor: pointer;
+
+    }
+
+    form#delete-account-form {
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        padding-bottom: 1rem;
+
+
+        >div {
+            display: flex;
+            gap: 0.5rem;
+
+        }
+
+        >button[type=submit] {
+            padding: 0.5rem;
+            width: fit-content;
+            margin: 0 auto;
+            border-radius: 0.5rem;
+            border: 1px solid gray;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            font-size: 1rem;
+        }
+    }
+
+
+
+
+
+
+}
