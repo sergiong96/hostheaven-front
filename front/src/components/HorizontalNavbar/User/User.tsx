@@ -19,7 +19,7 @@ function User() {
             const decodedToken: any = jwtDecode(token);
             const userName: string = decodedToken.name;
             setUserName(userName);
-        } 
+        }
     }, [])
 
 
@@ -44,7 +44,7 @@ function User() {
     return (
         <>
             <div id="user-icon" onClick={handleVisibility}>
-                <i className="fa-solid fa-user"></i>
+                {isLogedIn ? <i className="fa-solid fa-user-check"></i> : <i className="fa-solid fa-user-xmark"></i>}
                 {isVisible && !isLogedIn ? (
                     <div id='logIng-signIn-buttons'>
                         <button type="button" onClick={showLogInModal}>Inicia Sesión</button>

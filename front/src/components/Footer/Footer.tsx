@@ -1,4 +1,5 @@
 import './_Footer.scss';
+import { Link } from 'react-router-dom';
 
 function Footer() {
 
@@ -19,9 +20,9 @@ function Footer() {
                 </article>
                 <article id="footer-social-links">
                     <ul>
-                        <li><a href="#">Términos y Condiciones</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
-                        <li><a href="#">Política de Cookies</a></li>
+                        <li><Link to="/conditions">Términos y Condiciones</Link></li>
+                        <li><Link to="/privacy">Política de Privacidad</Link></li>
+                        <li><Link to="/cookies">Política de Cookies</Link></li>
                     </ul>
                 </article>
             </section>

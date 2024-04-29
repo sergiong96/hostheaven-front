@@ -4,14 +4,16 @@ import fetchEndpoints from '../../services/VirtualminService';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { getUserData, updateData, changePassword, getContractedPackage } from '../../services/UserService';
+import { updateTrade } from '../../services/TradeService';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { NavigateFunction, useNavigate, Link } from 'react-router-dom';
 import DeleteUserForm from './DeleteUserForm/DeleteUserForm';
 import ServerResponse from '../../components/ServerResponse/ServerResponse';
-import { HostingPackageTrade, ResponseData, PasswordData, UserData } from './types';
+import { HostingPackageTrade, ResponseData, PasswordData, UserData, updatedPackage } from './types';
 
 function UserArea() {
 
+    const imgUrl = require("../../assets/images/header/user-header.jpg");
     const [showContent, setShowContent] = useState<string>("user-data");
     const [links, setLink] = useState<any[]>([]);
     const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
@@ -38,7 +40,8 @@ function UserArea() {
         status: 0,
         response: ""
     });
-
+    const [daysLeft, setDaysLeft] = useState<number>(0);
+    const [updatedPackage, setUpdatedPackage] = useState<any>();
 
 
     useEffect(() => {
@@ -61,12 +64,18 @@ function UserArea() {
             }).then((data) => {
                 setUserData(data);
             });
-            
+
             getContractedPackage(userID).then((res) => {
                 return res.json();
             }).then((data) => {
                 if (data) {
                     setContractedPackage(data);
+                    setUpdatedPackage({
+                        id_user: userID,
+                        id_trade: data.id_trade,
+                        hostingPackage: data.hostingPackage
+                    });
+                    getDaysToFinish(data.date_end);
                 }
             });
         }
@@ -78,7 +87,7 @@ function UserArea() {
 
     }, [userID])
 
-    //Llamada a servicio para obtener los datos del paquete de hosting contratado.
+
 
     const openTab = (tab: string) => {
         setShowContent(tab);
@@ -103,9 +112,7 @@ function UserArea() {
         setUserData({
             ...userData,
             [name]: value
-        }
-
-        )
+        })
     }
 
     const showDeleteForm = () => {
@@ -174,20 +181,174 @@ function UserArea() {
         }
     }
 
+    const getDaysToFinish = (end_string: string) => {
+        let end_date: Date;
+        end_date = new Date(end_string);
+        let actual_date = new Date();
+        let days_left = Math.round((end_date.getTime() - actual_date.getTime()) / (1000 * 60 * 60 * 24));
+        setDaysLeft(days_left);
+    }
+
+    const showEditDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-dialog");
+        if (dialog) {
+            dialog.showModal();
+        }
+    }
+
+    const closeEditDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-dialog");
+        if (dialog) {
+            dialog.close();
+        }
+    }
+
+
+    const handleChangeUpdatePackage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        const parsedValue = parseInt(value);
+        const priceUpdatedTarget: HTMLInputElement | null = document.querySelector("input#newprice");
+
+        if (updatedPackage && priceUpdatedTarget) {
+            let difference = parsedValue - updatedPackage.hostingPackage[name];
+            let input_value: number = parseFloat(priceUpdatedTarget.value);
+            if (difference > 0) {
+                priceUpdatedTarget.value = (input_value + 1.2).toFixed(2).toString();
+            } else {
+                priceUpdatedTarget.value = (input_value - 1.2).toFixed(2).toString();
+            }
+
+            setUpdatedPackage({
+                ...updatedPackage,
+                amount: parseFloat(priceUpdatedTarget.value),
+                hostingPackage: {
+                    ...updatedPackage.hostingPackage,
+                    [name]: parsedValue
+                }
+            });
+
+        }
+
+    }
+
+
+    const handleSubmitUpdatePackage = (event: React.FormEvent) => {
+        event.preventDefault();
+        console.log(updatedPackage)
+
+        let resStatus = 0;
+        setResponseData({
+            status: resStatus,
+            response: ""
+        });
+        updateTrade(updatedPackage).then((res) => {
+            resStatus = res.status;
+            return res.json();
+        }).then((data) => {
+            setResponseData({
+                status: resStatus,
+                response: data.response
+            });
+
+        });
+    }
+
+
+
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main>
                 <section id="tabs">
                     <ul>
-                        <li id="user-data-tab" className={showContent === "user-data" ? "active" : ""} onClick={() => openTab("user-data")}>Datos Usuario</li>
                         <li id="hosting-summary-tab" className={showContent === "hosting-summary" ? "active" : ""} onClick={() => openTab("hosting-summary")}>Resumen Servicio</li>
+                        <li id="user-data-tab" className={showContent === "user-data" ? "active" : ""} onClick={() => openTab("user-data")}>Editar Datos</li>
+                        <li id="edit-service-tab" className={showContent === "edit-service" ? "active" : ""} onClick={() => openTab("edit-service")}>Editar Servicio</li>
                         <li id="hosting-portal-tab" className={showContent === "hosting-portal" ? "active" : ""} onClick={() => openTab("hosting-portal")}>Portal Hosting</li>
                     </ul>
                 </section>
                 <section id="tab-content">
+
+                    <article id="hosting-summary" className={showContent === "hosting-summary" ? "active" : ""}>
+                        <div id="userData">
+                            <p>Sus datos:</p>
+                            <p>Sergio Navarro</p>
+                            <p>serfer65@gmail.com</p>
+                            <p>675456755</p>
+                        </div>
+                        <div id="serviceData">
+                            <p>Su servicio activo:</p>
+                            <div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tipo</td>
+                                            <td>{contractedPackage?.hostingPackage.hosting_type}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Almacenamiento</td>
+                                            <td>{contractedPackage?.hostingPackage.storage}GB</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dominios</td>
+                                            <td>{contractedPackage?.hostingPackage.domains}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bases de Datos</td>
+                                            <td>{contractedPackage?.hostingPackage.databases}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cuentas de correo</td>
+                                            <td>{contractedPackage?.hostingPackage.email_account}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ancho de banda</td>
+                                            <td>{contractedPackage?.hostingPackage.monthly_bandwidth}GB</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>¿Soporte?</td>
+                                            <td>{contractedPackage?.hostingPackage.technical_support_24h ? "Sí" : "No"}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>¿Migración?</td>
+                                            <td>{contractedPackage?.hostingPackage.migration ? "Sí" : "No"}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>¿SSL?</td>
+                                            <td>{contractedPackage?.hostingPackage.ssl ? "Sí" : "No"}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fecha Inicio</td>
+                                            <td>{contractedPackage?.date_start}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fecha Fin</td>
+                                            <td>{contractedPackage?.date_end}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Facturación</td>
+                                            <td>{contractedPackage?.amount}€</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <label htmlFor="days-left">Días restantes para la renovación:</label>
+                                <input type="text" id="days-left" readOnly value={daysLeft} />
+                            </div>
+                        </div>
+
+                    </article>
+
+
                     <article id="user-data" className={showContent === "user-data" ? "active" : ""}>
-                        <p>Aquí puede ver y modificar sus datos</p>
+                        <p>Aquí puede modificar sus datos</p>
 
                         <div>
                             <form action="#" id="user-data-form" onSubmit={handleSubmitUserData}>
@@ -242,21 +403,25 @@ function UserArea() {
 
                     </article>
 
-                    <article id="hosting-summary" className={showContent === "hosting-summary" ? "active" : ""}>
-                        <p>Aquí puede ver las características de su servicio activo</p>
-                        {contractedPackage ? (<ul>
-                            <li><p>Almacenamiento</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.storage+"GB"}</span></li>
-                            <li><p>Bases de datos</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.databases}</span></li>
-                            <li><p>Cuentas de correo</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.email_account}</span></li>
-                            <li><p>Tipo de hosting</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.hosting_type}</span></li>
-                            <li><p>Número de dominios</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.domains}</span></li>
-                            <li><p>Ancho de banda</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.monthly_bandwidth+"GB/mes"}</span></li>
-                            <li><p>¿Soporte técnico 24h?</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.technical_support_24h ? "Sí":"No"}</span></li>
-                            <li><p>¿Migración?</p><span>=&gt;</span><span> {contractedPackage.hostingPackage.migration ? "Sí":"No"}</span></li>
-                            <li><p>Fecha inicio</p><span>=&gt;</span><span> {contractedPackage.date_start}</span></li>
-                            <li><p>Fecha fin</p><span>=&gt;</span><span> {contractedPackage.date_end}</span></li>
-                            <li><p>Facturación</p><span>=&gt;</span><span> {contractedPackage.amount+"€"}</span></li>
-                        </ul>) : (
+                    <article id="edit-service" className={showContent === "edit-service" ? "active" : ""}>
+                        {contractedPackage ? (
+                            <article>
+                                <button type="button" onClick={showEditDialog}>Actualizar Mi Servicio</button>
+                                <dialog id="edit-dialog">
+                                    <button type="button" onClick={closeEditDialog}>X</button>
+                                    <form onSubmit={handleSubmitUpdatePackage}>
+                                        <div><label htmlFor="stor">Almacenamiento</label><input type="number" min={0} name="storage" id="stor" defaultValue={contractedPackage.hostingPackage.storage} onChange={handleChangeUpdatePackage} /></div>
+                                        <div><label htmlFor="datab">Bases de datos</label><input type="number" min={0} name="databases" id="datab" defaultValue={contractedPackage.hostingPackage.databases} onChange={handleChangeUpdatePackage} /></div>
+                                        <div><label htmlFor="dom">Dominios</label><input type="number" name="domains" min={0} id="dom" defaultValue={contractedPackage.hostingPackage.domains} onChange={handleChangeUpdatePackage} /></div>
+                                        <div><label htmlFor="emailac">Cuentas de correo</label><input type="number" min={0} name="email_account" id="emailac" defaultValue={contractedPackage.hostingPackage.email_account} onChange={handleChangeUpdatePackage} /></div>
+                                        <div><label htmlFor="bandw">Ancho de banda</label><input type="number" min={0} name="monthly_bandwidth" id="bandw" defaultValue={contractedPackage.hostingPackage.monthly_bandwidth} onChange={handleChangeUpdatePackage} /></div>
+                                        <div><label htmlFor="actualprice">Precio Actual</label><input type="number" id="actualprice" defaultValue={contractedPackage.amount} readOnly /></div>
+                                        <div><label htmlFor="newprice">Precio Actualizado</label><input type="number" id="newprice" defaultValue={contractedPackage.amount} readOnly /></div>
+                                        <button type="submit">Editar Servicio</button>
+                                    </form>
+                                </dialog>
+                            </article>
+                        ) : (
                             <div>
                                 <div>
                                     <p>No dispone de ningún servicio de hosting activo.</p>

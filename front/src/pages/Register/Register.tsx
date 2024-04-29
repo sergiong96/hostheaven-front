@@ -9,7 +9,8 @@ import ServerResponse from '../../components/ServerResponse/ServerResponse';
 
 function Register() {
 
-    const imgRegister:string = require("../../assets/images/register.jpeg");
+    const imgUrl = require("../../assets/images/header/register-header.jpg");
+    const imgRegister: string = require("../../assets/images/register.jpeg");
     const navigate: NavigateFunction = useNavigate();
     const [paymentSelected, isPaymentSelected] = useState<boolean>(false);
     const [responseData, setResponseData] = useState<ResponseData>({
@@ -18,7 +19,7 @@ function Register() {
     });
 
 
-    const handlePaymentSelected = (event:React.ChangeEvent<HTMLSelectElement>) => {
+    const handlePaymentSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         let selectedOption = event.target.value;
         selectedOption !== "false" ? isPaymentSelected(true) : isPaymentSelected(false);
     }
@@ -26,7 +27,7 @@ function Register() {
 
     const getFormData = (form: HTMLFormElement) => {
         const formData = new FormData(form);
-        const formObject:{[key:string]:string} = {};
+        const formObject: { [key: string]: string } = {};
 
         formData.forEach((value, key) => {
             formObject[key] = value as string;
@@ -48,7 +49,7 @@ function Register() {
         signIn(formData).then((res) => {
             resStatus = res.status;
             return res.json();
-        }).then((data)=>{
+        }).then((data) => {
             setResponseData({
                 status: resStatus,
                 response: data.response
@@ -62,7 +63,7 @@ function Register() {
 
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main id="register-page">
                 <h1>No esperes más y aloja tus proyectos en HostHeaven</h1>
                 <section id="register-img-container">

@@ -6,13 +6,16 @@ import ContactHome from './ContactHome/ContactHome';
 import ReviewsHome from './ReviewsHome/ReviewsHome';
 
 function Home() {
+
+    const imgUrl = require("../../assets/images/header/home-header.jpeg");
+
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main id="home-page">
-                <HostingPackagesHome/>
-                <ContactHome/>
-                <ReviewsHome/>
+                <HostingPackagesHome />
+                <ContactHome />
+                <ReviewsHome />
             </main>
 
             <Footer />

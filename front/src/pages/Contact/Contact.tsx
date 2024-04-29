@@ -3,9 +3,12 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 function Contact() {
+
+    const imgUrl = require("../../assets/images/header/contact-header.jpg");
+
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main id="contact-page">
                 <section id="contact-info">
                     <p>Llámanos al teléfono +34 675865845</p>

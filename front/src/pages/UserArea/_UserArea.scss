@@ -45,6 +45,67 @@
         }
     }
 
+
+    article#hosting-summary.active {
+        display: flex;
+        justify-content: space-around;
+
+        >div {
+            outline: 1px solid;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            height: fit-content;
+
+            >p:first-of-type {
+                text-decoration: underline;
+            }
+        }
+
+        >div#serviceData {
+            >div:has(table) {
+                display: flex;
+                gap: 5rem;
+
+                table {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 0.2rem;
+
+                    tr {
+                        td:first-of-type {
+                            padding-right: 0.5rem;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+
+
+            >div:last-of-type {
+                width: fit-content;
+                margin: 2rem 0 0;
+
+                label {
+                    font-weight: 700;
+                }
+
+                input {
+                    margin-left: 0.5rem;
+                    border: none;
+                    background-color: inherit;
+                    text-align: center;
+                    width: 20%;
+                    font-size: 1rem;
+                    background-color: lightblue;
+                }
+            }
+        }
+
+
+
+
+    }
+
     article#user-data.active {
         display: flex;
         flex-direction: column;
@@ -183,7 +244,7 @@
     }
 
 
-    article#hosting-summary.active {
+    article#edit-service.active {
         >div {
             >div {
                 width: fit-content;

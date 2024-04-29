@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 
 function AboutUs() {
 
+    const imgUrl = require("../../assets/images/header/about-header.jpg");
     const imgCompany: string = require('../../assets/images/aboutCompany.jpg');
     const imgCompany2: string = require('../../assets/images/aboutCompany2.jpg');
     const logo: string = require("../../assets/logo/logo.png");
@@ -20,7 +21,7 @@ function AboutUs() {
 
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main id="aboutUs-page">
                 <section id="about-company-container">
                     <article>

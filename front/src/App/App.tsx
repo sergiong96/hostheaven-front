@@ -9,6 +9,9 @@ import HostingPlans from '../pages/HostingPlans/HostingPlan';
 import Payment from '../pages/Payment/Payment';
 import Glosary from '../pages/Glosary/Glosary';
 import UserArea from '../pages/UserArea/UserArea';
+import Privacy from '../pages/Privacy/Privacy';
+import Conditions from '../pages/Conditions/Conditions';
+import Cookies from '../pages/Cookies/Cookies';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
         <Route path='/payment' element={<Payment />} />
         <Route path='/glosary' element={<Glosary />} />
         <Route path='/userArea' element={<UserArea />} />
+        <Route path='/conditions' element={<Conditions />} />
+        <Route path='/cookies' element={<Cookies />} />
+        <Route path='/privacy' element={<Privacy />} />
       </Routes>
     </BrowserRouter>
   );

@@ -10,6 +10,7 @@ import { Concept } from './types';
 
 function Glosary() {
 
+    const imgUrl = require("../../assets/images/header/glosary-header.jpg");
     const [concepts, setConcepts] = useState<Concept[]>([]);
     const [seeConcept, setSeeConcept] = useState<Concept | null>(null);
 
@@ -34,7 +35,7 @@ function Glosary() {
 
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
 
             <main id="glosary-page">
                 <h3>El hosting puede resultar complejo. Deja que te ayudemos</h3>
@@ -52,9 +53,7 @@ function Glosary() {
             </main>
 
             <Footer />
-
         </>
-
     );
 };
 

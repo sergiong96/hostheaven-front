@@ -40,6 +40,7 @@ export interface HostingPackageTrade {
         purchase_quantity: number;
         custom: boolean;
     }
+    id_trade:number;
     date_start: string;
     date_end: string;
     amount: number;
@@ -54,3 +55,7 @@ export interface DeleteUserFormProps {
     user_id: number;
     onClose: () => void;
 }
+
+export interface updatedPackage {
+    [key:string]:number;
+ }

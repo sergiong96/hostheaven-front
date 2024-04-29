@@ -1,11 +1,9 @@
+import { Link } from "react-router-dom";
 import HorizontalNavbar from "../HorizontalNavbar/HorizontalNavbar";
 import './_Header.scss';
 import CountDownTimer from "./CountDownTimer/CountDownTimer";
 
-function Header() {
-
-    //CAMBIAR, EN DISTINTAS PÁGINAS SE DEBEN MOSTRAR DISTINTAS IMÁGENES
-    const imgUrl = require('../../assets/images/clouds.jpeg');
+function Header({ imagePath }: { imagePath: string }) {
 
     return (
         <header>
@@ -14,13 +12,13 @@ function Header() {
                 <article>
                     <h1>15% de descuento en toda la web</h1>
                     <h2>¡Por tiempo limitado!</h2>
-                    <div className="counter-header"><CountDownTimer/></div>
+                    <div className="counter-header"><CountDownTimer /></div>
                 </article>
                 <article>
-                    <img src={imgUrl} alt="Imagen Header"></img>
+                    <img src={imagePath} alt="Imagen Header"></img>
                 </article>
             </section>
-
+            {!window.location.href.includes("hostingPlans") ? <button type="button" className="cta"><Link to="/hostingPlans">Explora nuestros planes de hosting</Link></button> : ""}
         </header>
     )
 }

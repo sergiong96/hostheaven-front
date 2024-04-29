@@ -5,9 +5,12 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 function HostingPlans() {
+
+    const imgUrl = require("../../assets/images/header/plans-header.jpg");
+    
     return (
         <>
-            <Header />
+            <Header imagePath={imgUrl} />
             <main id="hostingPlans-page">
                 <Standard />
                 <Custom />
