@@ -1,20 +1,21 @@
 import './_UserArea.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import fetchEndpoints from '../../services/VirtualminService';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { getUserData, updateData, changePassword, getContractedPackage } from '../../services/UserService';
-import { updateTrade } from '../../services/TradeService';
+import { updateTrade, deleteTrade } from '../../services/TradeService';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { NavigateFunction, useNavigate, Link } from 'react-router-dom';
 import DeleteUserForm from './DeleteUserForm/DeleteUserForm';
 import ServerResponse from '../../components/ServerResponse/ServerResponse';
 import { HostingPackageTrade, ResponseData, PasswordData, UserData, updatedPackage } from './types';
+import { sendEmail } from '../../services/EmailService';
 
 function UserArea() {
 
     const imgUrl = require("../../assets/images/header/user-header.jpg");
-    const [showContent, setShowContent] = useState<string>("user-data");
+    const [showContent, setShowContent] = useState<string>("hosting-summary");
     const [links, setLink] = useState<any[]>([]);
     const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
     const [userID, setUserID] = useState<number>(-1);
@@ -190,14 +191,14 @@ function UserArea() {
     }
 
     const showEditDialog = () => {
-        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-dialog");
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-service-dialog");
         if (dialog) {
             dialog.showModal();
         }
     }
 
     const closeEditDialog = () => {
-        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-dialog");
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-service-dialog");
         if (dialog) {
             dialog.close();
         }
@@ -253,7 +254,93 @@ function UserArea() {
         });
     }
 
+    const deleteService = (event: React.FormEvent) => {
+        event.preventDefault();
+        let id_trade = 0;
+        let id_user = 0;
 
+        if (contractedPackage) {
+            id_trade = contractedPackage.id_trade;
+            id_user = userID;
+        }
+
+
+        let resStatus = 0;
+        setResponseData({
+            status: resStatus,
+            response: ""
+        });
+        deleteTrade(id_trade, id_user).then((res) => {
+            resStatus = res.status;
+            return res.json();
+        }).then((data) => {
+            setResponseData({
+                status: resStatus,
+                response: data.response
+            });
+        })
+
+
+
+    }
+
+    const showDeleteDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#delete-service-dialog");
+        if (dialog) {
+            dialog.showModal();
+        }
+    }
+
+    const closeDeleteDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#delete-service-dialog");
+        if (dialog) {
+            dialog.close();
+        }
+    }
+
+    const openTicketDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#ticketDialog");
+        if (dialog) {
+            dialog.showModal();
+        }
+    }
+
+    const closeTicketDialog = () => {
+        const dialog: HTMLDialogElement | null = document.querySelector("dialog#ticketDialog");
+        if (dialog) {
+            dialog.close();
+        }
+    }
+
+    const sendTicket = (event: React.FormEvent) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+        let formObject: any = {};
+
+        formData.forEach((value, key) => {
+            formObject[key] = value
+        });
+
+        formObject.sender = userData.email;
+        formObject.receiver = process.env.REACT_APP_EMAIL_REMITENT;
+        formObject.subject = "ticket";
+
+
+        let resStatus = 0;
+        setResponseData({
+            status: resStatus,
+            response: ""
+        });
+        sendEmail(formObject).then((res: Response) => {
+            resStatus = res.status;
+            return res.json();
+        }).then((data) => {
+            setResponseData({
+                status: resStatus,
+                response: data.response
+            });
+        })
+    }
 
     return (
         <>
@@ -263,7 +350,7 @@ function UserArea() {
                     <ul>
                         <li id="hosting-summary-tab" className={showContent === "hosting-summary" ? "active" : ""} onClick={() => openTab("hosting-summary")}>Resumen Servicio</li>
                         <li id="user-data-tab" className={showContent === "user-data" ? "active" : ""} onClick={() => openTab("user-data")}>Editar Datos</li>
-                        <li id="edit-service-tab" className={showContent === "edit-service" ? "active" : ""} onClick={() => openTab("edit-service")}>Editar Servicio</li>
+                        <li id="edit-service-tab" className={showContent === "edit-service" ? "active" : ""} onClick={() => openTab("edit-service")}>Modificar Servicio</li>
                         <li id="hosting-portal-tab" className={showContent === "hosting-portal" ? "active" : ""} onClick={() => openTab("hosting-portal")}>Portal Hosting</li>
                     </ul>
                 </section>
@@ -272,9 +359,21 @@ function UserArea() {
                     <article id="hosting-summary" className={showContent === "hosting-summary" ? "active" : ""}>
                         <div id="userData">
                             <p>Sus datos:</p>
-                            <p>Sergio Navarro</p>
-                            <p>serfer65@gmail.com</p>
+                            <p>{userData.name + " " + userData.surname}</p>
+                            <p>{userData.email}</p>
                             <p>675456755</p>
+                        </div>
+                        <div id="sendTicket">
+                            <p>Envía una petición el equipo de soporte:</p>
+                            <button type="button" onClick={openTicketDialog}>Enviar Ticket</button>
+                            <dialog id="ticketDialog">
+                                <button type="button" onClick={closeTicketDialog}>X</button>
+                                <p>Nuestro equipo responderá en menos de 12 horas.</p>
+                                <form onSubmit={sendTicket}>
+                                    <textarea name="message" placeholder='Detalle su problema' rows={5} cols={5}></textarea>
+                                    <button type="submit">Enviar Ticket</button>
+                                </form>
+                            </dialog>
                         </div>
                         <div id="serviceData">
                             <p>Su servicio activo:</p>
@@ -337,19 +436,15 @@ function UserArea() {
                                     </tbody>
                                 </table>
                             </div>
-
                             <div>
                                 <label htmlFor="days-left">Días restantes para la renovación:</label>
                                 <input type="text" id="days-left" readOnly value={daysLeft} />
                             </div>
                         </div>
-
                     </article>
-
 
                     <article id="user-data" className={showContent === "user-data" ? "active" : ""}>
                         <p>Aquí puede modificar sus datos</p>
-
                         <div>
                             <form action="#" id="user-data-form" onSubmit={handleSubmitUserData}>
                                 <div>
@@ -389,25 +484,17 @@ function UserArea() {
                         <button type="button" id="delete-user" onClick={showDeleteForm}>Quiero eliminar mi cuenta</button>
                         {showDeleteModal && <DeleteUserForm user_id={userID} onClose={closeDeleteModal} />}
                     </article>
-                    <article id="hosting-portal" className={showContent === "hosting-portal" ? "active" : ""}>
-                        <p>Para acceder a su panel de control, pulse sobre el botón 'Generar enlace' y se le proporcionará un link de acceso seguro</p>
-
-                        <div id="link-provider">
-                            <button type="button" onClick={getLinks}>Generar Enlace <i className="fa-solid fa-arrows-spin"></i></button>
-                            {!showErrorMessage ? (links.map((endpoint) => (
-                                <span key={endpoint.id_endpoint}><i className="fa-solid fa-dungeon"></i><a href={endpoint.public_url} target='_blank' rel="noreferrer">Ir al Portal</a></span>
-                            ))
-                            ) : (<p>No se han encontrado enlaces o ha ocurrido un error durante su generación</p>)
-                            }
-                        </div>
-
-                    </article>
 
                     <article id="edit-service" className={showContent === "edit-service" ? "active" : ""}>
                         {contractedPackage ? (
                             <article>
-                                <button type="button" onClick={showEditDialog}>Actualizar Mi Servicio</button>
-                                <dialog id="edit-dialog">
+
+                                <div>
+                                    <button type="button" onClick={showEditDialog}>Actualizar mi servicio</button>
+                                    <button type="button" onClick={showDeleteDialog}>Eliminar mi servicio</button>
+                                </div>
+
+                                <dialog id="edit-service-dialog">
                                     <button type="button" onClick={closeEditDialog}>X</button>
                                     <form onSubmit={handleSubmitUpdatePackage}>
                                         <div><label htmlFor="stor">Almacenamiento</label><input type="number" min={0} name="storage" id="stor" defaultValue={contractedPackage.hostingPackage.storage} onChange={handleChangeUpdatePackage} /></div>
@@ -420,6 +507,14 @@ function UserArea() {
                                         <button type="submit">Editar Servicio</button>
                                     </form>
                                 </dialog>
+
+                                <dialog id="delete-service-dialog">
+                                    <form onSubmit={deleteService}>
+                                        <p>¿Seguro que desea eliminar su servicio activo?</p>
+                                        <button type="submit">Darse de baja</button>
+                                        <button type="button" onClick={closeDeleteDialog}>Cancelar</button>
+                                    </form>
+                                </dialog>
                             </article>
                         ) : (
                             <div>
@@ -430,8 +525,21 @@ function UserArea() {
                                 </div>
                             </div>
                         )}
-
                     </article>
+
+                    <article id="hosting-portal" className={showContent === "hosting-portal" ? "active" : ""}>
+                        <p>Para acceder a su panel de control, pulse sobre el botón 'Generar enlace' y se le proporcionará un link de acceso seguro</p>
+
+                        <div id="link-provider">
+                            <button type="button" onClick={getLinks}>Generar Enlace <i className="fa-solid fa-arrows-spin"></i></button>
+                            {!showErrorMessage ? (links.map((endpoint) => (
+                                <span key={endpoint.id_endpoint}><i className="fa-solid fa-dungeon"></i><a href={endpoint.public_url} target='_blank' rel="noreferrer">Ir al Portal</a></span>
+                            ))
+                            ) : (<p>No se han encontrado enlaces o ha ocurrido un error durante su generación</p>)
+                            }
+                        </div>
+                    </article>
+
                 </section>
             </main>
             {responseData.status !== 0 && <ServerResponse responseStatus={responseData.status} response={responseData.response} />}

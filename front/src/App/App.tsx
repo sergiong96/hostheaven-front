@@ -12,6 +12,7 @@ import UserArea from '../pages/UserArea/UserArea';
 import Privacy from '../pages/Privacy/Privacy';
 import Conditions from '../pages/Conditions/Conditions';
 import Cookies from '../pages/Cookies/Cookies';
+import AuthBeforePay from '../pages/AuthBeforePay/AuthBeforePay';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/conditions' element={<Conditions />} />
         <Route path='/cookies' element={<Cookies />} />
         <Route path='/privacy' element={<Privacy />} />
+        <Route path='/authBef' element={<AuthBeforePay />} />
       </Routes>
     </BrowserRouter>
   );

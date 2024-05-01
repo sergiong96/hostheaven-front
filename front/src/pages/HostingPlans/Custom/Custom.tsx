@@ -205,18 +205,15 @@ function Custom() {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        const form: HTMLFormElement = event.currentTarget as HTMLFormElement;
+        const formData = new FormData(form);
+        let packageData: CustomPackageData = getPackageData(formData);
+
         if (!isLoggedIn) {
-            alert("Necesita autenticarse antes de contratar cualquier servicio");
+            navigate("/authBef", { state: { packageData: packageData } });
         } else {
-            const form: HTMLFormElement = event.currentTarget as HTMLFormElement;
-            const formData = new FormData(form);
-            let packageData: CustomPackageData = getPackageData(formData);
-
-
-            console.log(packageData)
             navigate("/payment", { state: { packageData: packageData } });
         }
-
 
     }
 

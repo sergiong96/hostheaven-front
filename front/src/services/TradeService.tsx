@@ -27,3 +27,16 @@ export const updateTrade = (tradeData: any): Promise<Response> => {
         })
     })
 }
+
+export const deleteTrade = (id_trade: number, id_user: number): Promise<Response> => {
+    return new Promise((resolve, reject) => {
+        fetch(process.env.REACT_APP_BACKEND_DOMAIN + `trades/delete/${id_trade}/${id_user}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            resolve(response);
+        })
+    })
+}

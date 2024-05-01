@@ -4,9 +4,6 @@ import './_conditions.scss';
 
 function Conditions() {
 
-
-
-
     return (
         <main id="conditions-page">
             <h2>Términos y Condiciones de Uso</h2>
@@ -31,9 +28,6 @@ function Conditions() {
             <h3>COMPROBACIÓN ANTIFRAUDE</h3>
             <p>La compra del cliente puede ser aplazada para la comprobación antifraude. También puede ser suspendida por más tiempo para una investigación más rigurosa, para evitar transacciones fraudulentas.</p>
         </main>
-
-
-
     )
 }
 

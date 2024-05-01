@@ -30,11 +30,11 @@ function HostingPackagesHome() {
 
 
     const handlePaymentClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+        const packageData = getPackageData(event.currentTarget);
+
         if (!isLoggedIn) {
-            alert("Necesita autenticarse antes de contratar cualquier servicio");
+            navigate("/authBef", { state: { packageData: packageData } });
         } else {
-            const packageData = getPackageData(event.currentTarget);
-            console.log(packageData)
             navigate("/payment", { state: { packageData: packageData } });
         }
     }

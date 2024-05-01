@@ -29,10 +29,11 @@ function Standard() {
 
 
     const handlePaymentClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const packageData = getPackageData(event.currentTarget);
+
         if (!isLoggedIn) {
-            alert("Necesita autenticarse antes de contratar cualquier servicio");
+            navigate("/authBef", { state: { packageData: packageData } });
         } else {
-            const packageData = getPackageData(event.currentTarget);
             navigate("/payment", { state: { packageData: packageData } });
         }
     }
