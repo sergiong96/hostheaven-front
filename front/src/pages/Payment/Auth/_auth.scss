@@ -1,0 +1,145 @@
+body.overflow {
+    overflow: hidden;
+}
+
+section#not-loged {
+
+    p>button {
+        color: blue;
+        padding: 0;
+        margin: 0;
+        text-decoration: underline;
+        cursor: pointer;
+        border: none;
+        font-size: inherit;
+        background-color: transparent;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    form#sigin-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: fit-content;
+        row-gap: 1rem;
+
+        >div {
+            display: flex;
+            gap: 1rem;
+
+            >div.form-group {
+                position: relative;
+
+                label {
+                    position: absolute;
+                    top: 8px;
+                    left: 5px;
+                    font-size: 0.8rem;
+                    color: gray;
+                    cursor: text;
+                    background-color: white;
+                    transition: all 0.3s;
+
+                    &:has(+input:focus),
+                    &:not(:has(+input:placeholder-shown)) {
+                        transition: all 0.3s;
+                        color: black;
+                        top: -8px;
+                        z-index: 9999;
+                    }
+                }
+
+                input {
+                    padding: 0.5rem;
+                    width: 10rem;
+                }
+
+
+            }
+        }
+
+        button[type=submit] {
+            cursor: pointer;
+            font-size: 1rem;
+            width: 50%;
+            margin: 0 auto;
+            padding: 0.3rem;
+            border-radius: 0.5rem;
+            border: none;
+
+            &:hover {
+                background-color: gainsboro;
+            }
+        }
+
+    }
+
+    dialog#log-in {
+
+        >button {
+            cursor: pointer;
+            font-size: 1rem;
+            border: none;
+
+            &:hover {
+                background-color: gainsboro;
+            }
+        }
+
+        form#login-form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 2rem;
+            margin-top: 2rem;
+
+            >div {
+                display: flex;
+                flex-direction: column;
+            }
+
+            div.form-group {
+                position: relative;
+
+                label {
+                    cursor: text;
+                    position: absolute;
+                    color: gray;
+                    font-size: 0.9rem;
+                    top: 5px;
+                    left: 3px;
+                    transition: all 0.3s;
+
+                    &:has(+input:focus),
+                    &:not(:has(+input:placeholder-shown)) {
+                        transition: all 0.3s;
+                        top: -20px;
+                        color: black;
+                    }
+                }
+
+                input {
+                    width: 12rem;
+                    padding: 0.3rem;
+                }
+            }
+
+            button[type=submit] {
+                cursor: pointer;
+                font-size: 1rem;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                border: none;
+
+                &:hover {
+                    background-color: gainsboro;
+                }
+            }
+        }
+
+    }
+
+
+}

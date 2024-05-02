@@ -6,6 +6,7 @@ export interface UserData {
     password: string;
     payment_method: string;
     payment_reference: string | null;
+    phone_number: string | null;
 }
 
 export interface PasswordData {
@@ -40,7 +41,7 @@ export interface HostingPackageTrade {
         purchase_quantity: number;
         custom: boolean;
     }
-    id_trade:number;
+    id_trade: number;
     date_start: string;
     date_end: string;
     amount: number;
@@ -57,5 +58,5 @@ export interface DeleteUserFormProps {
 }
 
 export interface updatedPackage {
-    [key:string]:number;
- }
+    [key: string]: number;
+}

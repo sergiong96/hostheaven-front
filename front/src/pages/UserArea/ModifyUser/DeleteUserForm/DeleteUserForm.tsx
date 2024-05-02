@@ -1,8 +1,8 @@
-import './_DeleteUserForm.scss';
-import ServerResponse from '../../../components/ServerResponse/ServerResponse';
+import './_deleteUserForm.scss';
+import ServerResponse from '../../../../components/ServerResponse/ServerResponse';
 import { useState, useEffect } from 'react';
-import { deleteUser } from '../../../services/UserService';
-import { ResponseData, DeleteUserFormProps, DeleteData } from '../types';
+import { deleteUser } from '../../../../services/UserService';
+import { ResponseData, DeleteUserFormProps, DeleteData } from '../../types';
 
 
 
@@ -47,7 +47,6 @@ function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
 
     const handleSubmitRemove = (event: React.FormEvent) => {
         event.preventDefault();
-
         let resStatus = 0;
         setResponseData({
             status: resStatus,
@@ -75,10 +74,11 @@ function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
                 <button type="button" onClick={closeDialog}>X</button>
                 <form id="delete-account-form" onSubmit={handleSubmitRemove}>
                     <div>
-                        <label htmlFor="">Introduzca su contraseña:</label>
-                        <input type="password" onChange={handleChangePass} />
+                        <label htmlFor="passw">Introduzca su contraseña:</label>
+                        <input type="password" id="passw" onChange={handleChangePass} />
                     </div>
-                    <button type="submit">¿Seguro que desea eliminar su cuenta?</button>
+                    <button type="submit">Eliminar mi cuenta ahora</button>
+                    <p>*Esta acción no se puede revertir</p>
                 </form>
             </dialog>
             {responseData.status !== 0 && <ServerResponse responseStatus={responseData.status} response={responseData.response} />}

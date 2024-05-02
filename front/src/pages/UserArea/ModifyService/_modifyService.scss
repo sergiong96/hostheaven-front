@@ -1,0 +1,82 @@
+@use '../../../styles/vars';
+
+body.overflow{
+    overflow: hidden;
+}
+
+article#edit-service {
+
+    >article>div {
+        display: flex;
+        justify-content: space-around;
+
+        button {
+            font-weight: 600;
+            padding: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            border: 1px solid vars.$main-violet;
+            transition: all 0.2s;
+
+            &:first-of-type:hover {
+                transition: all 0.2s;
+                color: white;
+                background-color: vars.$main-violet;
+            }
+
+            &:last-of-type:hover {
+                transition: all 0.2s;
+                color: white;
+                background-color: vars.$strong-red;
+            }
+
+        }
+    }
+
+
+
+    dialog {
+        padding: 1rem 2rem;
+
+        >button {
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            padding: 0.3rem 0.5rem;
+
+            &:hover {
+                background-color: gainsboro
+            }
+        }
+
+        >form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.8rem;
+            margin-top: 1rem;
+
+            label {
+                display: inline-block;
+                width: 10rem;
+            }
+
+            input {
+                width: 3rem;
+            }
+
+            button {
+                padding: 0.5rem;
+                font-size: 1rem;
+                margin-top: 1rem;
+                cursor: pointer;
+            }
+
+            button[type=submit] {
+                &:hover {
+                    background-color: vars.$strong-red;
+                }
+            }
+        }
+    }
+}

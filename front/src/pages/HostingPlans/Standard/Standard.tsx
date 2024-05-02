@@ -30,12 +30,7 @@ function Standard() {
 
     const handlePaymentClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         const packageData = getPackageData(event.currentTarget);
-
-        if (!isLoggedIn) {
-            navigate("/authBef", { state: { packageData: packageData } });
-        } else {
-            navigate("/payment", { state: { packageData: packageData } });
-        }
+        navigate("/payment", { state: { packageData: packageData } });
     }
 
     const getPackageData = (button: HTMLButtonElement) => {

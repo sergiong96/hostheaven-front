@@ -208,13 +208,7 @@ function Custom() {
         const form: HTMLFormElement = event.currentTarget as HTMLFormElement;
         const formData = new FormData(form);
         let packageData: CustomPackageData = getPackageData(formData);
-
-        if (!isLoggedIn) {
-            navigate("/authBef", { state: { packageData: packageData } });
-        } else {
-            navigate("/payment", { state: { packageData: packageData } });
-        }
-
+        navigate("/payment", { state: { packageData: packageData } });
     }
 
     return (

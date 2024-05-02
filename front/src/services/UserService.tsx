@@ -113,7 +113,27 @@ export const getContractedPackage = (user_id: number): Promise<Response> => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            resolve(res);
+            if (res.ok) {
+                resolve(res);
+            }
+        }).catch((error) => {
+            reject(error)
+        })
+    });
+
+}
+
+export const signInAndLogin = (formData: any): Promise<Response> => {
+
+    return new Promise((resolve, reject) => {
+        fetch(process.env.REACT_APP_BACKEND_DOMAIN + "users/signInLogIn", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        }).then((response) => {
+            resolve(response);
         });
     });
 
