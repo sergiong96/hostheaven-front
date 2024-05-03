@@ -10,6 +10,7 @@ import HostingSummary from './HostingSummary/HostingSummary';
 import ModifyUser from './ModifyUser/ModifyUser';
 import ModifyService from './ModifyService/ModifyService';
 import HostingPortal from './HostingPortal/HostingPortal';
+import MyTickets from './MyTickets/MyTickets';
 
 
 
@@ -82,6 +83,7 @@ function UserArea() {
                         <li id="modify-user-tab" className={showContent === "modify-user" ? "active" : ""} onClick={() => openTab("modify-user")}>Editar Datos</li>
                         <li id="modify-service-tab" className={showContent === "modify-service" ? "active" : ""} onClick={() => openTab("modify-service")}>Modificar Servicio</li>
                         <li id="hosting-portal-tab" className={showContent === "hosting-portal" ? "active" : ""} onClick={() => openTab("hosting-portal")}>Portal Hosting</li>
+                        <li id="my-tickets-tab" className={showContent === "my-tickets" ? "active" : ""} onClick={() => openTab("my-tickets")}>Mis Tickets</li>
                     </ul>
                 </section>
                 <section id="tab-content">
@@ -89,6 +91,7 @@ function UserArea() {
                     {showContent === "modify-user" && <ModifyUser userData={userData} userID={userID} />}
                     {showContent === "modify-service" && <ModifyService contractedPackage={contractedPackage} userID={userID} />}
                     {showContent === "hosting-portal" && <HostingPortal />}
+                    {showContent === "my-tickets" && <MyTickets user_id={userID} />}
                 </section>
             </main>
             <Footer />

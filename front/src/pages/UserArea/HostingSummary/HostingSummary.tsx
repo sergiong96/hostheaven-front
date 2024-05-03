@@ -15,7 +15,6 @@ function HostingSummary({ userData, contractedPackage }: { userData: UserData, c
 
 
     useEffect(() => {
-        console.log(contractedPackage)
         if (contractedPackage) {
             getDaysToFinish(contractedPackage.date_end);
         }
@@ -57,7 +56,8 @@ function HostingSummary({ userData, contractedPackage }: { userData: UserData, c
         formData.forEach((value, key) => {
             formObject[key] = value
         });
-
+        
+        formObject.id_user = userData.id_user;
         formObject.sender = userData.email;
         formObject.receiver = process.env.REACT_APP_EMAIL_REMITENT;
         formObject.subject = "ticket";
