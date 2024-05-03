@@ -1,5 +1,5 @@
-import './_userArea.scss';
 import { useEffect, useState } from 'react';
+import './_UserArea.scss';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { getUserData, getContractedPackage } from '../../services/UserService';
