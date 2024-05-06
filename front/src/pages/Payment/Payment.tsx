@@ -88,10 +88,10 @@ function Payment() {
                     date_end: endDateFormat,
                     payment_method: paymentSelected,
                     custom: true,
-                    hosting_type: packageData.type,
+                    hosting_type: packageData.hosting_type,
                     email_account: packageData.email_account,
                     storage: packageData.storage,
-                    monthly_bandwidth: packageData.bandwidth,
+                    monthly_bandwidth: packageData.monthly_bandwidth,
                     domains: packageData.domains,
                     databases: packageData.databases,
                     ftp_server: true,
@@ -132,7 +132,7 @@ function Payment() {
                 });
                 setTimeout(() => {
                     navigate("/userArea");
-                }, 3000);
+                }, 2000);
             })
         } else {
             const authSection = document.querySelector("section#not-loged");

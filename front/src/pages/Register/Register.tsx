@@ -40,8 +40,11 @@ function Register() {
     async function HandleSubmit(event: React.FormEvent) {
         event.preventDefault();
         const formData = getFormData(event.target as HTMLFormElement);
-        let resStatus = 0;
+        if (formData.payment_method === "false") {
+            formData.payment_method = "NULL";
+        }
 
+        let resStatus = 0;
         setResponseData({
             status: resStatus,
             response: ""
@@ -56,7 +59,7 @@ function Register() {
             });
             setTimeout(() => {
                 navigate("/");
-            }, 3000);
+            }, 2000);
         })
 
     }

@@ -1,6 +1,6 @@
 import './_modifyService.scss';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ResponseData, HostingPackageTrade } from "../types";
 import { updateTrade, deleteTrade } from "../../../services/TradeService";
 import ServerResponse from "../../../components/ServerResponse/ServerResponse";
@@ -14,6 +14,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
         status: 0,
         response: ""
     });
+    const navigate=useNavigate();
 
 
 
@@ -134,6 +135,10 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
                 status: resStatus,
                 response: data.response
             });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         })
     }
 

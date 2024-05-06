@@ -1,3 +1,5 @@
+@use '../../../styles/vars';
+
 body.overflow {
     overflow: hidden;
 }
@@ -31,8 +33,14 @@ article#hosting-summary {
 
         >button {
             font-size: 1rem;
-            padding: 0.3rem;
+            padding: 0.3rem 2rem;
             cursor: pointer;
+            border-radius: 0.5rem;
+            border: 1px solid black;
+
+            &:hover {
+                background-color: vars.$main-blue;
+            }
         }
 
         dialog#ticketDialog {
@@ -53,9 +61,29 @@ article#hosting-summary {
                 gap: 1rem;
 
                 >button {
+                    position: relative;
                     padding: 0.5rem;
                     font-size: 1rem;
                     cursor: pointer;
+                    z-index: 10;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 0;
+                        background-color: vars.$main-blue;
+                        transition: all 0.6s ease-in-out;
+                        z-index: -1;
+                    }
+
+                    &:hover::before {
+                        width: 100%;
+                        transition: all 0.6s ease-in-out;
+                    }
                 }
             }
         }

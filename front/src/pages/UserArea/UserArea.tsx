@@ -90,7 +90,7 @@ function UserArea() {
                     {showContent === "hosting-summary" && <HostingSummary userData={userData} contractedPackage={contractedPackage} />}
                     {showContent === "modify-user" && <ModifyUser userData={userData} userID={userID} />}
                     {showContent === "modify-service" && <ModifyService contractedPackage={contractedPackage} userID={userID} />}
-                    {showContent === "hosting-portal" && <HostingPortal />}
+                    {showContent === "hosting-portal" && <HostingPortal contractedPackage={contractedPackage} />}
                     {showContent === "my-tickets" && <MyTickets user_id={userID} />}
                 </section>
             </main>

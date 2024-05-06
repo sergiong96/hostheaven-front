@@ -3,10 +3,13 @@ import ServerResponse from '../../../../components/ServerResponse/ServerResponse
 import { useState, useEffect } from 'react';
 import { deleteUser } from '../../../../services/UserService';
 import { ResponseData, DeleteUserFormProps, DeleteData } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
+
+    const navigate = useNavigate();
     const [responseData, setResponseData] = useState<ResponseData>({
         status: 0,
         response: ""
@@ -57,13 +60,16 @@ function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            console.log(data)
             setResponseData({
                 status: resStatus,
                 response: data.response
             });
-        })
-
+            setTimeout(() => {
+                closeDialog();
+                localStorage.removeItem("sessionToken");
+                navigate("/");
+            }, 2000);
+        });
     }
 
 

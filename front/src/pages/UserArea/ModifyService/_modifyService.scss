@@ -1,6 +1,6 @@
 @use '../../../styles/vars';
 
-body.overflow{
+body.overflow {
     overflow: hidden;
 }
 
@@ -34,7 +34,28 @@ article#edit-service {
         }
     }
 
+    >div>div button {
+        font-size: 1rem;
+        padding: 0;
+        border-radius: 0.3rem;
+        border: 2px solid black;
 
+        a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: black;
+
+            &:hover {
+                color: vars.$main-violet;
+            }
+
+        }
+
+        &:hover {
+            border-color: vars.$main-violet;
+        }
+    }
 
     dialog {
         padding: 1rem 2rem;
