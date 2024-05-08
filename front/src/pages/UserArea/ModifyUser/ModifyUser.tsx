@@ -73,7 +73,7 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
         }).then((data) => {
             setResponseData({
                 status: resStatus,
-                response: data.response
+                response: data.message
             });
         }).catch((error) => {
             setResponseData({
@@ -110,7 +110,7 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
             }).then((data) => {
                 setResponseData({
                     status: resStatus,
-                    response: data.response
+                    response: data.message
                 });
             })
         }

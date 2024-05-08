@@ -30,7 +30,7 @@ function Payment() {
         status: 0,
         response: ""
     });
-
+    const [finalPrice, setFinalPrice] = useState<string>("");
 
     useEffect(() => {
         const token: string | null = localStorage.getItem("sessionToken");
@@ -60,6 +60,7 @@ function Payment() {
     useEffect(() => {
         setPackageData(location.state.packageData);
         if (packageData) {
+            setFinalPrice(packageData.package_price + "€");
             setPrice1month(packageData.package_price);
             setPrice12month(((packageData.package_price - (packageData.package_price * 0.15)) * 12).toFixed(2));
             setPrice24month(((packageData.package_price - (packageData.package_price * 0.20)) * 24).toFixed(2));
@@ -128,7 +129,7 @@ function Payment() {
             }).then((data) => {
                 setResponseData({
                     status: resStatus,
-                    response: data.response
+                    response: data.message
                 });
                 setTimeout(() => {
                     navigate("/userArea");
@@ -177,7 +178,7 @@ function Payment() {
         const finalPrice = ((element.nextElementSibling as HTMLElement).querySelector("input[name=final-amount]") as HTMLInputElement).value;
         const finalPriceSummary = document.querySelector("#summary #package-data #final-price input[type=text]") as HTMLInputElement;
         if (finalPriceSummary) {
-            finalPriceSummary.value = finalPrice + "€";
+            setFinalPrice(finalPrice + "€");
         }
     }
 
@@ -282,11 +283,11 @@ function Payment() {
                     <article id="user-data">
                         <div>
                             <label htmlFor="username">Nombre usuario</label>
-                            <input type="text" defaultValue={userData.name || ""} id="username" />
+                            <input type="text" readOnly defaultValue={userData.name || ""} id="username" />
                         </div>
                         <div>
                             <label htmlFor="useremail">Correo electrónico</label>
-                            <input type="email" defaultValue={userData.email || ""} id="useremail" />
+                            <input type="email" readOnly defaultValue={userData.email || ""} id="useremail" />
                         </div>
                     </article>
 
@@ -302,7 +303,7 @@ function Payment() {
                         </ul>
                         <div id="final-price">
                             <label htmlFor="">Precio Final:  </label>
-                            <input type="text" readOnly value={packageData.package_price + "€"} />
+                            <input type="text" readOnly value={finalPrice} />
                         </div>
                     </article>
                 </section>

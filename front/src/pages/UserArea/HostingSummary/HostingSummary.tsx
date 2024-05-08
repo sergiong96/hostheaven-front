@@ -74,7 +74,7 @@ function HostingSummary({ userData, contractedPackage }: { userData: UserData, c
         }).then((data) => {
             setResponseData({
                 status: resStatus,
-                response: data.response
+                response: data.message
             });
         })
     }

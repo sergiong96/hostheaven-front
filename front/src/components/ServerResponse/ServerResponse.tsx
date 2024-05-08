@@ -28,7 +28,7 @@ function ServerResponse({ responseStatus, response }: serverResponseProps) {
 
         const timer: NodeJS.Timeout = setTimeout(() => {
             setIsVisible(false);
-        }, 10000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [responseStatus]);

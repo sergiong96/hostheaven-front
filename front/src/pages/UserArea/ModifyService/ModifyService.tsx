@@ -88,7 +88,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
         }).then((data) => {
             setResponseData({
                 status: resStatus,
-                response: data.response
+                response: data.message
             });
 
         });
@@ -133,7 +133,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
         }).then((data) => {
             setResponseData({
                 status: resStatus,
-                response: data.response
+                response: data.message
             });
 
             setTimeout(() => {

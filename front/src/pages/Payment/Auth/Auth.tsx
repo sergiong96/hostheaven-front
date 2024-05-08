@@ -2,11 +2,16 @@ import './_auth.scss';
 import { logIn } from '../../../services/UserService';
 import { useState } from 'react';
 import { signInAndLogin } from '../../../services/UserService';
+import { ResponseData } from '../types';
+import ServerResponse from '../../../components/ServerResponse/ServerResponse';
 
 function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, updateLoginStatus: Function }) {
 
     const [loginResponse, setLoginResponse] = useState("");
-
+    const [responseData, setResponseData] = useState<ResponseData>({
+        status: 0,
+        response: ""
+    });
 
     const openLoginModal = () => {
         const dialog = document.querySelector("dialog#log-in") as HTMLDialogElement;
@@ -33,15 +38,31 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
             formObjet[key] = value
         });
 
-        signInAndLogin(formObjet).then((res) => {
+        let resStatus = 0;
+
+        setResponseData({
+            status: resStatus,
+            response: ""
+        });
+        signInAndLogin(formObjet).then((res: Response) => {
+            resStatus = res.status;
             return res.json();
         }).then((data) => {
-            const token = data.token;
+            const token: string | null | undefined = data.token;
             if (token) {
+                setResponseData({
+                    status: resStatus,
+                    response: data.message
+                });
                 localStorage.setItem("sessionToken", token);
                 setTimeout(() => {
                     updateLoginStatus();
                 }, 2000);
+            } else {
+                setResponseData({
+                    status: resStatus,
+                    response: data.message
+                })
             }
         });
     }
@@ -123,6 +144,7 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
                 </form>
                 {loginResponse && <p>{loginResponse}</p>}
             </dialog>
+            {responseData.status !== 0 && <ServerResponse responseStatus={responseData.status} response={responseData.response} />}
         </section>
     )
 }

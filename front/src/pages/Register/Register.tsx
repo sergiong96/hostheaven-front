@@ -55,7 +55,7 @@ function Register() {
         }).then((data) => {
             setResponseData({
                 status: resStatus,
-                response: data.response
+                response: data.message
             });
             setTimeout(() => {
                 navigate("/");

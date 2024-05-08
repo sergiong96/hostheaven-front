@@ -4,7 +4,7 @@ main#payment-page {
     padding: 5rem 0;
 
 
-    section {
+    section:not(#server-response) {
         display: grid;
         grid-template-rows: auto auto;
         grid-template-columns: auto auto;

@@ -37,7 +37,7 @@ function ContactHome() {
             }).then((data) => {
                 setResponseData({
                     status: resStatus,
-                    response: data.response
+                    response: data.message
                 });
             })
 
