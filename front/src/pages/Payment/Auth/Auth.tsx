@@ -40,10 +40,7 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
 
         let resStatus = 0;
 
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
+        handleServerResponse(resStatus, "");
         signInAndLogin(formObjet).then((res: Response) => {
             resStatus = res.status;
             return res.json();
@@ -58,12 +55,12 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
                 setTimeout(() => {
                     updateLoginStatus();
                 }, 2000);
-            } else {
-                setResponseData({
-                    status: resStatus,
-                    response: data.message
-                })
             }
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+            });
         });
     }
 
@@ -97,6 +94,12 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
         });
     }
 
+    const handleServerResponse = (status: number, message: string) => {
+        setResponseData({
+            status: status,
+            response: message
+        });
+    }
 
     return (
         <section id="not-loged">
@@ -111,18 +114,18 @@ function Auth({ sectionNumber, updateLoginStatus }: { sectionNumber: number, upd
                         </div>
                         <div className='form-group'>
                             <label htmlFor="ape">Apellidos</label>
-                            <input type="text" id="ape" name="surname" placeholder=' ' required/>
+                            <input type="text" id="ape" name="surname" placeholder=' ' required />
                         </div>
                     </div>
 
                     <div>
                         <div className='form-group'>
                             <label htmlFor="mail">Correo electrónico</label>
-                            <input type="email" id="mail" name="email" placeholder=' ' required/>
+                            <input type="email" id="mail" name="email" placeholder=' ' required />
                         </div>
                         <div className='form-group'>
                             <label htmlFor="pas">Contraseña</label>
-                            <input type="password" id="pas" name="password" placeholder=' ' required/>
+                            <input type="password" id="pas" name="password" placeholder=' ' required />
                         </div>
                     </div>
                     <button type="submit">Crear cuenta</button>

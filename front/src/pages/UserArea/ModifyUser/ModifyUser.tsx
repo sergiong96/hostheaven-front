@@ -62,24 +62,18 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
         event.preventDefault();
         let resStatus = 0;
 
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
-
+        handleServerResponse(resStatus, "");
         updateData(userDataUpdated).then((res: Response) => {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            setResponseData({
-                status: resStatus,
-                response: data.message
-            });
-        }).catch((error) => {
-            setResponseData({
-                status: resStatus,
-                response: error
-            });
+            handleServerResponse(resStatus, data.message);
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+            })
+
         })
 
     }
@@ -100,22 +94,27 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
         } else {
             let resStatus = 0;
 
-            setResponseData({
-                status: resStatus,
-                response: ""
-            });
+            handleServerResponse(resStatus, "");
             changePassword(newPassword).then((res: Response) => {
                 resStatus = res.status;
                 return res.json();
             }).then((data) => {
-                setResponseData({
-                    status: resStatus,
-                    response: data.message
+                handleServerResponse(resStatus, data.message);
+            }).catch((res: Response) => {
+                resStatus = res.status;
+                res.json().then((error) => {
+                    handleServerResponse(resStatus, error.message);
                 });
-            })
+            });
         }
     }
 
+    const handleServerResponse = (status: number, message: string) => {
+        setResponseData({
+            status: status,
+            response: message
+        });
+    }
 
     return (
         <article id="user-data">

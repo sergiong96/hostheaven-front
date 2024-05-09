@@ -1,4 +1,3 @@
-
 export const signIn = (formData: any): Promise<Response> => {
 
     return new Promise((resolve, reject) => {
@@ -9,7 +8,12 @@ export const signIn = (formData: any): Promise<Response> => {
             },
             body: JSON.stringify(formData)
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
+        }).catch((error) => {
+            reject(error);
         });
     });
 
@@ -25,7 +29,12 @@ export const getUserData = (user_id: number): Promise<Response> => {
                 'Content-Type': 'application/json'
             },
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
+        }).catch((error) => {
+            reject(error);
         });
     });
 }
@@ -41,7 +50,12 @@ export const logIn = (credentials: any): Promise<Response> => {
             },
             body: credentials
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
+        }).catch((error) => {
+            reject(error);
         });
     });
 }
@@ -57,24 +71,18 @@ export const updateData = (userData: any): Promise<Response> => {
             },
             body: JSON.stringify(userData)
         }).then((response) => {
-            if (response.ok) {
-                resolve(response);
-            } else {
-                response.json().then((errorData) => {
-                    throw new Error(errorData.response);
-                }).catch((error) => {
-                    reject(error.response);
-                });
+            if (!response.ok) {
+                throw response;
             }
+            resolve(response);
         }).catch((error) => {
-            reject("Error en la solicitud " + error);
-        })
+            reject(error);
+        });
     })
 }
 
 
 export const changePassword = (passwordObj: any): Promise<Response> => {
-
     return new Promise((resolve, reject) => {
         fetch(process.env.REACT_APP_BACKEND_DOMAIN + "users/changePassword", {
             method: "POST",
@@ -83,9 +91,14 @@ export const changePassword = (passwordObj: any): Promise<Response> => {
             },
             body: JSON.stringify(passwordObj)
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
-        })
-    })
+        }).catch((error) => {
+            reject(error);
+        });
+    });
 
 }
 
@@ -99,8 +112,13 @@ export const deleteUser = (user_id: number, password: string): Promise<Response>
             },
             body: password
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
-        })
+        }).catch((error) => {
+            reject(error);
+        });
     });
 }
 
@@ -112,12 +130,13 @@ export const getContractedPackage = (user_id: number): Promise<Response> => {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then((res) => {
-            if (res.ok) {
-                resolve(res);
+        }).then((response) => {
+            if (!response.ok) {
+                throw response;
             }
+            resolve(response);
         }).catch((error) => {
-            reject(error)
+            reject(error);
         })
     });
 
@@ -133,7 +152,12 @@ export const signInAndLogin = (formData: any): Promise<Response> => {
             },
             body: JSON.stringify(formData)
         }).then((response) => {
+            if (!response.ok) {
+                throw response;
+            }
             resolve(response);
+        }).catch((error) => {
+            reject(error);
         });
     });
 

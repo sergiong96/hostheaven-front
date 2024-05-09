@@ -50,29 +50,33 @@ function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
 
     const handleSubmitRemove = (event: React.FormEvent) => {
         event.preventDefault();
+        
         let resStatus = 0;
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
-
+        handleServerResponse(resStatus, "");
         deleteUser(deleteData.user_id, deleteData.password).then((res) => {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            setResponseData({
-                status: resStatus,
-                response: data.message
-            });
+            handleServerResponse(resStatus, data.message);
             setTimeout(() => {
                 closeDialog();
                 localStorage.removeItem("sessionToken");
                 navigate("/");
             }, 2000);
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+            });
         });
     }
 
-
+    const handleServerResponse = (status: number, message: string) => {
+        setResponseData({
+            status: status,
+            response: message
+        });
+    }
 
     return (
         <>

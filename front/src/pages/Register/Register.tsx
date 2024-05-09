@@ -45,25 +45,31 @@ function Register() {
         }
 
         let resStatus = 0;
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
+        handleServerResponse(resStatus, "");
         signIn(formData).then((res) => {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            setResponseData({
-                status: resStatus,
-                response: data.message
-            });
+            handleServerResponse(resStatus, data.message);
             setTimeout(() => {
                 navigate("/");
             }, 2000);
-        })
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+            });
 
+        });
     }
 
+    const handleServerResponse = (status: number, message: string) => {
+        setResponseData({
+            status: status,
+            response: message
+        });
+    }
+    
     return (
         <>
             <Header imagePath={imgUrl} />
