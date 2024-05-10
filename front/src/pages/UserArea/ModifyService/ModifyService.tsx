@@ -14,7 +14,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
         status: 0,
         response: ""
     });
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
 
 
@@ -67,9 +67,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
                     [name]: parsedValue
                 }
             });
-
         }
-
     }
 
 
@@ -78,19 +76,18 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
         closeEditDialog();
 
         let resStatus = 0;
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
+        handleServerResponse(resStatus, "");
         updateTrade(updatedPackage).then((res) => {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            setResponseData({
-                status: resStatus,
-                response: data.message
-            });
+            handleServerResponse(resStatus, data.message);
 
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+            });
         });
     }
 
@@ -123,23 +120,31 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
 
 
         let resStatus = 0;
-        setResponseData({
-            status: resStatus,
-            response: ""
-        });
+        handleServerResponse(resStatus, "");
         deleteTrade(id_trade, id_user).then((res) => {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            setResponseData({
-                status: resStatus,
-                response: data.message
-            });
-
+            handleServerResponse(resStatus, data.message);
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
-        })
+        }).catch((res: Response) => {
+            resStatus = res.status;
+            res.json().then((error) => {
+                handleServerResponse(resStatus, error.message);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            });
+        });
+    }
+
+    const handleServerResponse = (status: number, message: string) => {
+        setResponseData({
+            status: status,
+            response: message
+        });
     }
 
 
