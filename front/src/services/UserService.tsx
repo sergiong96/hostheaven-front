@@ -162,3 +162,21 @@ export const signInAndLogin = (formData: any): Promise<Response> => {
     });
 
 }
+
+export const getAllUsers = (): Promise<Response> => {
+    return new Promise((resolve, reject) => {
+        fetch(process.env.REACT_APP_BACKEND_DOMAIN + "users/getAllUsers", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response: Response) => {
+            if (!response.ok) {
+                throw response;
+            }
+            resolve(response);
+        }).catch((error) => {
+            reject(error)
+        });
+    });
+}

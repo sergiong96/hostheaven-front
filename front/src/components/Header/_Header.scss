@@ -4,42 +4,54 @@ header {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, #4c42ff 15%, hsla(205, 94%, 82%, 1) 87%);
+    background-color: rgba($color: #28282800, $alpha: 0.5);
+    background-blend-mode: overlay;
+    background-position: center;
+    background-size: cover;
     height: 100vh;
 
     #header-content {
         display: flex;
-        justify-content: space-around;
         align-items: center;
-        margin: auto 0;
+        justify-content: space-between;
+        margin: auto 4rem;
         font-size: 1.5rem;
 
         h2 {
             width: fit-content;
             background-color: vars.$strong-red;
+            color: black;
         }
 
-        img {
-            width: 25rem;
-            display: block;
-            border-radius: 100%;
+        >article {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            img {
+                border-radius: 20%;
+                opacity: 0.9;
+                box-shadow: 0px 0px 6px black;
+            }
         }
+
     }
 
     button.cta {
-        width: 20%;
         border-radius: 1rem;
         background-color: rgba($color: #0048ff, $alpha: 0.2);
         border: 2px solid white;
         margin: 0 auto 3rem auto;
         transition: all 0.4s;
+        padding: 0.5rem;
 
         &:hover {
             transform: scale(1.05);
             box-shadow: 0 1px 4px grey;
             transition: all 0.4s;
             background-color: rgba($color: #0048ff, $alpha: 0.5);
-    
+
         }
 
         a {

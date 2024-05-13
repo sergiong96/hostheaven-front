@@ -46,7 +46,9 @@ main#contact-page {
                 border: 1px solid black;
                 border-radius: 0.5rem;
                 box-shadow: 1px 2px 5px gray;
+                padding: 0.2rem 0.5rem;
             }
+
 
             #form-data-1 {
                 display: flex;
@@ -57,7 +59,27 @@ main#contact-page {
                     flex-direction: column;
                     align-items: center;
                 }
+
+                .form-group {
+                    position: relative;
+
+                    label {
+                        cursor: text;
+                        position: absolute;
+                        top: 0.5rem;
+                        color: gray;
+                        transition: all 0.4s;
+
+                        &:has(+input:focus),
+                        &:not(:has(+input:placeholder-shown)) {
+                            top: -1.5rem;
+                            color: black;
+                            transition: all 0.4s;
+                        }
+                    }
+                }
             }
+
 
             #form-data-2 {
                 display: flex;
@@ -67,6 +89,31 @@ main#contact-page {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                }
+
+                .form-group-select {
+                    position: relative;
+
+                    label {
+                        position: absolute;
+                        top: 0.2rem;
+                        left: 0.7rem;
+                        color: gray;
+                        font-size: 0.9rem;
+                    }
+
+                    select#motiv {
+                        height: 4rem;
+                        font-size: 1rem;
+                        padding-top: 0.5rem;
+                    }
+
+                    select#client {
+                        width: 8rem;
+                        height: 4rem;
+                        font-size: 1rem;
+                        padding-top: 0.5rem;
+                    }
                 }
             }
 

@@ -4,6 +4,12 @@
 main#aboutUs-page {
     padding: 6rem 0;
 
+    section>article>p {
+        font-size: 1.2rem;
+        line-height: 2.3rem;
+        margin: 1rem;
+    }
+
 
     section#about-company-container {
         display: flex;
@@ -13,7 +19,7 @@ main#aboutUs-page {
         margin: 0 auto;
         border: 2px solid vars.$background-white;
         border-bottom: none;
-        padding: 1rem 1rem 0;
+        padding: 1rem 1rem 4rem;
 
         img {
             width: 30rem;
@@ -34,30 +40,27 @@ main#aboutUs-page {
         background-color: vars.$main-blue;
         padding: 1rem 0;
 
-        h3 {
+        h2 {
             font-family: "Permanent Marker", cursive !important;
             text-align: center;
-            margin: 0 0 1rem 0;
+            margin: 0 0 2rem 0;
         }
 
         >div {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            gap: 4rem;
 
             >div {
-                height: 5rem;
+                height: 6rem;
 
                 p {
                     font-family: "Permanent Marker", cursive !important;
                     text-align: center;
                     margin: 0;
+                    font-size: 1.3rem;
                 }
 
-                p:first-of-type {
-                    font-size: 1.1rem
-                }
             }
         }
 
@@ -151,14 +154,9 @@ main#aboutUs-page {
                 position: absolute;
                 display: block;
                 width: 100vw;
-                background-color: black;
-                color: black;
+                background-color: gainsboro;
                 height: 2px;
             }
-
         }
-
-
     }
-
 }

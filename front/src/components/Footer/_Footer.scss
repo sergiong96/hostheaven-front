@@ -1,16 +1,17 @@
 @use '../../styles/vars';
 
 footer {
-
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: auto;
     grid-template-rows: auto auto;
     background-color: vars.$footer-black;
     color: white;
+    position: relative;
 
     #footer-logo {
-        grid-row: 1;
-        grid-column: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
 
         img {
             width: 8rem;
@@ -18,23 +19,29 @@ footer {
     }
 
     #footer-social {
-        grid-column: 2;
         grid-row: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 8rem;
 
 
         #footer-social-icons {
             ul {
                 display: flex;
                 list-style-type: none;
-                gap: 6rem;
+                gap: 3rem;
 
                 i {
                     font-size: 2rem;
                     cursor: pointer;
+                    transition: transform 0.3s;
+
+                    &:hover {
+                        transform: scale(1.2);
+                        transition: transform 0.3s;
+                    }
                 }
             }
         }
@@ -44,10 +51,12 @@ footer {
                 display: flex;
                 list-style-type: none;
                 gap: 3rem;
-                a{
+
+                a {
                     text-decoration: none;
                     color: white;
-                    &:hover{
+
+                    &:hover {
                         text-decoration: underline;
                     }
                 }
@@ -57,7 +66,6 @@ footer {
 
     #footer-copy {
         grid-row: 2;
-        grid-column: 1/3;
         text-align: center;
         border-top: 2px solid vars.$background-white;
 
@@ -66,8 +74,4 @@ footer {
             padding: 0.3rem;
         }
     }
-
-
-
-
 }

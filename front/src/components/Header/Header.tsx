@@ -5,8 +5,10 @@ import CountDownTimer from "./CountDownTimer/CountDownTimer";
 
 function Header({ imagePath }: { imagePath: string }) {
 
+    const logo = require("../../assets/logo/logo.png");
+
     return (
-        <header>
+        <header style={{ backgroundImage: `url(${imagePath})` }}>
             <HorizontalNavbar />
             <section id="header-content">
                 <article>
@@ -15,8 +17,10 @@ function Header({ imagePath }: { imagePath: string }) {
                     <div className="counter-header"><CountDownTimer /></div>
                 </article>
                 <article>
-                    <img src={imagePath} alt="Imagen Header"></img>
+                    <img src={logo} alt="" />
                 </article>
+
+
             </section>
             {!window.location.href.includes("hostingPlans") ? <button type="button" className="cta"><Link to="/hostingPlans">Explora nuestros planes de hosting</Link></button> : ""}
         </header>

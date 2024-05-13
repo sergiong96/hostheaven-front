@@ -60,3 +60,22 @@ export interface DeleteUserFormProps {
 export interface updatedPackage {
     [key: string]: number;
 }
+
+export interface User {
+    id_user: number;
+    name: string;
+    surname: string;
+    password: string;
+    email: string;
+}
+
+export interface Ticket {
+    id_email_request: number;
+    id_user: number;
+    message: string;
+    receiver: string;
+    response: null;
+    sender: string;
+    state: string | null;
+    subject: string;
+}

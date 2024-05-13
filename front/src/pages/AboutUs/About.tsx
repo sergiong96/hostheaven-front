@@ -34,7 +34,7 @@ function AboutUs() {
                     </article>
                 </section>
                 <section id="company-numbers">
-                    <h3>Nuestro progreso, en números</h3>
+                    <h2>Nuestro progreso, en números</h2>
                     <div>
                         <div>
                             <p>+3000</p>

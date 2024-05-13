@@ -10,12 +10,13 @@ import Auth from './Auth/Auth';
 
 function Payment() {
 
+    const logo = require("../../assets/logo/logo.png");
     const location = useLocation();
     const navigate: NavigateFunction = useNavigate();
     const [packageData, setPackageData] = useState<any>({});
-    const [price1month, setPrice1month] = useState<string>("");
-    const [price12month, setPrice12month] = useState<string>("");
-    const [price24month, setPrice24month] = useState<string>("");
+    const [price1month, setPrice1month] = useState<string>("0");
+    const [price12month, setPrice12month] = useState<string>("0");
+    const [price24month, setPrice24month] = useState<string>("0");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [userData, setUserData] = useState<UserData>({
         user_id: 0,
@@ -30,7 +31,7 @@ function Payment() {
         status: 0,
         response: ""
     });
-    const [finalPrice, setFinalPrice] = useState<string>("");
+    const [finalPrice, setFinalPrice] = useState<string>("0");
 
     useEffect(() => {
         const token: string | null = localStorage.getItem("sessionToken");
@@ -84,24 +85,24 @@ function Payment() {
                 // Para paquetes custom
                 dataObject = {
                     id_user: userData.user_id,
-                    package_price: finalPrice,
+                    package_price: finalPrice || 0,
                     date_start: startDateFormat,
                     date_end: endDateFormat,
                     payment_method: paymentSelected,
                     custom: true,
                     hosting_type: packageData.hosting_type,
-                    email_account: packageData.email_account,
-                    storage: packageData.storage,
-                    monthly_bandwidth: packageData.monthly_bandwidth,
-                    domains: packageData.domains,
-                    databases: packageData.databases,
+                    email_account: packageData.email_account || 0,
+                    storage: packageData.storage || 0,
+                    monthly_bandwidth: packageData.monthly_bandwidth || 0,
+                    domains: packageData.domains || 0,
+                    databases: packageData.databases || 0,
                     ftp_server: true,
-                    migration: packageData.migration,
+                    migration: packageData.migration || false,
                     purchase_quantity: "1",
-                    technical_support_24h: packageData.technical_support_24h,
+                    technical_support_24h: packageData.technical_support_24h || false,
                     ssl: true,
                     cdn: true,
-                    app_installation: packageData.app_installation,
+                    app_installation: packageData.app_installation || false,
                     state: "COMPLETADO"
                 };
             } else {
@@ -109,7 +110,7 @@ function Payment() {
                 dataObject = {
                     id_package: packageData.id_package,
                     id_user: userData.user_id,
-                    package_price: finalPrice,
+                    package_price: finalPrice || 0,
                     date_start: startDateFormat,
                     date_end: endDateFormat,
                     payment_method: paymentSelected,
@@ -201,9 +202,14 @@ function Payment() {
         });
     }
 
+    const redirectHome = () => {
+        navigate("/");
+    }
+
     return (
         <>
             <main id="payment-page">
+                <img src={logo} alt="Logo" title='Ir a Home' onClick={redirectHome} />
                 <section id="period">
                     <p>{setSectionNumber()}. Elige un período</p>
                     <article>
@@ -214,7 +220,7 @@ function Payment() {
                             </div>
                             <div>
                                 <p>Total:</p>
-                                <input type="text" name="final-amount" readOnly value={price1month || ""} />
+                                <input type="text" name="final-amount" readOnly value={price1month || "0"} />
                                 <p>€</p>
                             </div>
                             <p>{packageData.package_price}€ al mes</p>
@@ -227,7 +233,7 @@ function Payment() {
                             </div>
                             <div>
                                 <p>Total:</p>
-                                <input type="text" name="final-amount" readOnly value={price12month || ""} />
+                                <input type="text" name="final-amount" readOnly value={price12month || "0"} />
                                 <p>€</p>
                             </div>
                             <p>{(packageData.package_price - (packageData.package_price * 0.15)).toFixed(2)}€ al mes</p>
@@ -240,7 +246,7 @@ function Payment() {
                             </div>
                             <div>
                                 <p>Total:</p>
-                                <input type="text" name="final-amount" readOnly value={price24month || ""} />
+                                <input type="text" name="final-amount" readOnly value={price24month || "0"} />
                                 <p>€</p>
                             </div>
                             <p>{(packageData.package_price - (packageData.package_price * 0.20)).toFixed(2)}€ al mes</p>
@@ -302,10 +308,10 @@ function Payment() {
                     <article id="package-data">
                         <ul>
                             <li>Tipo de hosting: <span>{packageData.hosting_type}</span></li>
-                            <li><span>{packageData.storage}GB</span> de almacenamiento</li>
-                            <li><span>{packageData.monthly_bandwidth}GB</span> de ancho de banda</li>
-                            <li><span>{packageData.domains}</span> dominios</li>
-                            <li><span>{packageData.databases}</span> bases de datos</li>
+                            <li><span>{packageData.storage || 0}GB</span> de almacenamiento</li>
+                            <li><span>{packageData.monthly_bandwidth || 0}GB</span> de ancho de banda</li>
+                            <li><span>{packageData.domains || 0}</span> dominios</li>
+                            <li><span>{packageData.databases || 0}</span> bases de datos</li>
                             <li>¿CDN? <span>{packageData.cdn ? "Sí" : "No"}</span></li>
                             <li>¿Soporte 24h? <span>{packageData.technical_support_24h ? "Sí" : "No"}</span></li>
                         </ul>

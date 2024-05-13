@@ -3,6 +3,14 @@
 main#payment-page {
     padding: 5rem 0;
 
+    >img {
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        left: 4rem;
+        width: 5rem;
+        height: 5rem;
+    }
 
     section:not(#server-response) {
         display: grid;

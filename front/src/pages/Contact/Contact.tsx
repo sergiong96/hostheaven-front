@@ -44,9 +44,8 @@ function Contact() {
                 });
             })
         }
-
-
     }
+
     return (
         <>
             <Header imagePath={imgUrl} />
@@ -59,24 +58,24 @@ function Contact() {
                     <form onSubmit={handleEmailSubmit}>
 
                         <article id="form-data-1">
-                            <div>
+                            <div className='form-group'>
                                 <label htmlFor="name">Nombre</label>
-                                <input type="text" id="name" />
+                                <input type="text" id="name" placeholder=' ' />
                             </div>
 
-                            <div>
+                            <div className='form-group'>
                                 <label htmlFor="telf">Teléfono</label>
-                                <input type="tel" id="telf" />
+                                <input type="tel" id="telf" placeholder=' ' />
                             </div>
 
-                            <div>
+                            <div className='form-group'>
                                 <label htmlFor="mail">Correo electrónico</label>
-                                <input type="email" id="mail" name="sender" required />
+                                <input type="email" id="mail" name="sender" placeholder=' ' required />
                             </div>
 
                         </article>
                         <article id="form-data-2">
-                            <div>
+                            <div className='form-group-select'>
                                 <label htmlFor="motiv">Motivo</label>
                                 <select name="subject" id="motiv" required>
                                     <option value="false">Seleccione un asunto...</option>
@@ -85,7 +84,7 @@ function Contact() {
                                     <option value="other">Otro</option>
                                 </select>
                             </div>
-                            <div>
+                            <div className='form-group-select'>
                                 <label htmlFor="client">¿Eres cliente?</label>
                                 <select name="esCliente" id="client">
                                     <option value="yes">Sí</option>
@@ -107,7 +106,7 @@ function Contact() {
 
             <Footer />
         </>
-    );
+    )
 }
 
 export default Contact;
