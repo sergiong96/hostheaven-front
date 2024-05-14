@@ -82,7 +82,9 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
             return res.json();
         }).then((data) => {
             handleServerResponse(resStatus, data.message);
-
+            setTimeout(() => { 
+                window.location.reload(); 
+            }, 2000);
         }).catch((res: Response) => {
             resStatus = res.status;
             res.json().then((error) => {

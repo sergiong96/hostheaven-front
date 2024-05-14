@@ -12,7 +12,7 @@ function AdminArea() {
     const navigate: NavigateFunction = useNavigate();
     const [users, setUsers] = useState<User[]>([]);
     const [tickets, setTickets] = useState<Ticket[]>([]);
-    const [selectedTicket, setSelectedTicket] = useState<Ticket>();
+    const [selectedTicket, setSelectedTicket] = useState<Ticket | null>();
     const [responseData, setResponseData] = useState<ResponseData>({
         status: 0,
         response: ""
@@ -49,18 +49,33 @@ function AdminArea() {
 
 
     const openTicket = (event: React.MouseEvent<HTMLLIElement>) => {
+        const form: HTMLFormElement | null = document.querySelector("dialog#response-ticket-dialog form");
+        form?.reset();
+
         const dialog: HTMLDialogElement | null = document.querySelector("dialog#response-ticket-dialog");
         const clickedTicket = tickets.find(ticket => parseInt(event.currentTarget.id) === ticket.id_email_request);
         setSelectedTicket(clickedTicket);
+
         if (dialog) {
+            document.body.classList.add("overflow");
             dialog.showModal();
         }
+
+        setTimeout(() => {
+            const textarea: HTMLTextAreaElement | null | undefined = dialog?.querySelector("textarea:first-of-type");
+            if (textarea) {
+                textarea.style.height = "0px";
+                textarea.style.height = textarea.scrollHeight.toString() + "px";
+            }
+        }, 0);
+
 
     }
 
     const closeDialog = () => {
         const dialog: HTMLDialogElement | null = document.querySelector("dialog#response-ticket-dialog");
         if (dialog) {
+            document.body.classList.remove("overflow");
             dialog.close();
         }
     }
@@ -82,6 +97,7 @@ function AdminArea() {
         }).then((data) => {
             handleServerResponse(resStatus, data.message);
             closeDialog();
+            window.location.reload();
         }).catch((res: Response) => {
             resStatus = res.status;
             res.json().then((error) => {
@@ -108,39 +124,38 @@ function AdminArea() {
             </section>
             <section id="admin-tab-content">
                 {showContent === "new-users" &&
-                    <article>
+                    <article id="new-users-content">
                         <h2>Nuevos usuarios registrados</h2>
-                        {users?.map((user) => (
-                            <table key={user.id_user}>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nombre</th>
-                                        <th>Apellidos</th>
-                                        <th>Correo electrónico</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Correo electrónico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users?.map((user) => (
+                                    <tr key={user.id_user}>
                                         <td>{user.id_user}</td>
                                         <td>{user.name}</td>
                                         <td>{user.surname}</td>
                                         <td>{user.email}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        ))}
+                                ))}
+                            </tbody>
+                        </table>
                     </article>
                 }
 
                 {showContent === "view-tickets" &&
-                    <article>
+                    <article id="view-tickets-content">
                         <h2>Tickets no resueltos</h2>
-
                         {tickets.length > 0 &&
                             <ul>
                                 {tickets.map((ticket: Ticket) => (
-                                    <li key={ticket.id_email_request} id={ticket.id_email_request.toString()} onClick={openTicket}>ID Usuario: {ticket.id_user}</li>
+                                    <li key={ticket.id_email_request} id={ticket.id_email_request.toString()} onClick={openTicket}>ID Ticket: {ticket.id_email_request}</li>
                                 ))}
                             </ul>
                         }
@@ -148,14 +163,15 @@ function AdminArea() {
                         <dialog id="response-ticket-dialog">
                             <button type="button" onClick={closeDialog}>X</button>
                             <form onSubmit={sendResponse}>
+                                <p>ID del usuario: {selectedTicket?.id_user}</p>
                                 <div>
                                     <label htmlFor="sol">Solicitud</label>
-                                    <input type="text" id="sol" defaultValue={selectedTicket?.message} readOnly />
+                                    <textarea id="sol" defaultValue={selectedTicket?.message} readOnly></textarea>
                                 </div>
 
                                 <div>
                                     <label htmlFor="resp">Respuesta</label>
-                                    <input type="text" name="response" id="resp" />
+                                    <textarea name="response" id="resp" rows={5}></textarea>
                                 </div>
                                 <input type="hidden" name="id_ticket" defaultValue={selectedTicket?.id_email_request} />
                                 <button type="submit">Enviar respuesta</button>

@@ -68,6 +68,9 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
             return res.json();
         }).then((data) => {
             handleServerResponse(resStatus, data.message);
+            setTimeout(() => { 
+                window.location.reload(); 
+            }, 2000);
         }).catch((res: Response) => {
             resStatus = res.status;
             res.json().then((error) => {

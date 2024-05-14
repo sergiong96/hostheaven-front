@@ -56,6 +56,7 @@ function Payment() {
         } else {
             setIsLoggedIn(false);
         }
+        window.scrollTo(0, 0);
     }, [])
 
     useEffect(() => {

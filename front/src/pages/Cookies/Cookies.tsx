@@ -1,11 +1,24 @@
 import './_cookies.scss';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Cookies() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
 
+    const navigate = useNavigate();
+
+    const logo = require("../../assets/logo/logo.png");
+
+    const redirectHome = () => {
+        navigate("/");
+    }
+    
     return (
         <main id="cookies-page">
+            <img src={logo} alt="Logo" onClick={redirectHome} />
             <h2>Política de Cookies</h2>
             <p>En esta web se utilizan cookies de terceros y propias para conseguir que tengas una mejor experiencia de navegación, puedas compartir contenido en redes sociales y para que podamos obtener estadísticas de los usuarios.
                 Puedes evitar la descarga de cookies a través de la configuración de tu navegador, evitando que las cookies se almacenen en su dispositivo.
@@ -21,42 +34,45 @@ function Cookies() {
             <p>Las cookies utilizadas en nuestro sitio web, son de sesión y de terceros, y nos permiten almacenar y acceder a información relativa al idioma, el tipo de navegador utilizado, y otras características generales predefinidas por el usuario, así como, seguir y analizar la actividad que lleva a cabo, con el objeto de introducir mejoras y prestar nuestros servicios de una manera más eficiente y personalizada.
                 Las cookies, en función de su permanencia, pueden dividirse en cookies de sesión o permanentes. Las que expiran cuando el usuario cierra el navegador. Las que expiran en función de cuando se cumpla el objetivo para el que sirven (por ejemplo, para que el usuario se mantenga identificado en los servicios de Sergio Navarro) o bien cuando se borran manualmente.</p>
             <table>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Tipo</th>
-                    <th>Caducidad</th>
-                    <th>Finalidad</th>
-                    <th>Clase</th>
-                </tr>
-                <tr>
-                    <td>__utma</td>
-                    <td>De Terceros (Google Analytics)</td>
-                    <td>2 años</td>
-                    <td>Se usa para distinguir usuarios y sesiones.</td>
-                    <td>	No Exenta</td>
-                </tr>
-                <tr>
-                    <td>__utmb</td>
-                    <td>De Terceros (Google Analytics)</td>
-                    <td>30 minutos</td>
-                    <td>Se usa para determinar nuevas sesiones o visitas</td>
-                    <td>No Exenta</td>
-                </tr>
-                <tr>
-                    <td>__utmc</td>
-                    <td>De Terceros (Google Analytics)</td>
-                    <td>Al finalizar la sesión</td>
-                    <td>Se configura para su uso con Urchin</td>
-                    <td>No Exenta</td>
-                </tr>
-                <tr>
-                    <td>__utmz</td>
-                    <td>De Terceros (Google Analytics)</td>
-                    <td>6 meses</td>
-                    <td>Almacena el origen o la campaña que explica cómo el usuario ha llegado hasta la página web</td>
-                    <td>No Exenta</td>
-                </tr>
-
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Caducidad</th>
+                        <th>Finalidad</th>
+                        <th>Clase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>__utma</td>
+                        <td>De Terceros (Google Analytics)</td>
+                        <td>2 años</td>
+                        <td>Se usa para distinguir usuarios y sesiones.</td>
+                        <td>	No Exenta</td>
+                    </tr>
+                    <tr>
+                        <td>__utmb</td>
+                        <td>De Terceros (Google Analytics)</td>
+                        <td>30 minutos</td>
+                        <td>Se usa para determinar nuevas sesiones o visitas</td>
+                        <td>No Exenta</td>
+                    </tr>
+                    <tr>
+                        <td>__utmc</td>
+                        <td>De Terceros (Google Analytics)</td>
+                        <td>Al finalizar la sesión</td>
+                        <td>Se configura para su uso con Urchin</td>
+                        <td>No Exenta</td>
+                    </tr>
+                    <tr>
+                        <td>__utmz</td>
+                        <td>De Terceros (Google Analytics)</td>
+                        <td>6 meses</td>
+                        <td>Almacena el origen o la campaña que explica cómo el usuario ha llegado hasta la página web</td>
+                        <td>No Exenta</td>
+                    </tr>
+                </tbody>
             </table>
 
             <h3>Cookies de rendimiento</h3>

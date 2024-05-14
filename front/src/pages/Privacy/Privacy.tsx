@@ -1,13 +1,24 @@
 import './_privacy.scss';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Privacy() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    const navigate = useNavigate();
+
+    const logo = require("../../assets/logo/logo.png");
+
+    const redirectHome = () => {
+        navigate("/");
+    }
 
 
     return (
         <main id="privacy-policy">
-
+            <img src={logo} alt="Logo" onClick={redirectHome} />
             <h2>Titular y Responsable del tratamiento de los Datos</h2>
             <h3>Clases de Datos recogidos</h3>
             <p>La información completa referente a cada categoría de Datos Personales que se recogen se proporciona en las secciones de la presente política de privacidad dedicadas a tal fin o mediante textos explicativos específicos que se muestran antes de la recogida de dichos Datos.
@@ -16,7 +27,7 @@ function Privacy() {
                 Los Usuarios que tengan dudas sobre qué Datos son obligatorios pueden contactar con el Titular.
                 El uso de Cookies - o de otras herramientas de seguimiento - por parte de esta Aplicación o por los titulares de servicios de terceros utilizados por esta Aplicación tiene como finalidad la prestación del Servicio solicitado por el Usuario, además de cualesquiera otras finalidades que se describan en el presente documento y en la Política de Cookies.
                 El Usuario asume la responsabilidad respecto de los Datos Personales de terceros que se obtengan, publiquen o compartan a través de esta Aplicación.</p>
-            
+
             <h3>Modalidad y lugar del tratamiento de los Datos recogidos</h3>
             <h4>Modalidades de Tratamiento</h4>
             <p>El Titular tratará los Datos de los Usuarios de manera adecuada y adoptará las medidas de seguridad apropiadas para impedir el acceso, la revelación, alteración o destrucción no autorizados de los Datos.
@@ -27,7 +38,7 @@ function Privacy() {
             <h4>Período de conservación</h4>
             <p> Salvo que se indique lo contrario en el presente documento, los Datos Personales serán tratados y conservados durante el tiempo necesario y para la finalidad por la que han sido recogidos y podrán conservarse durante más tiempo debido a una obligación legal pertinente o sobre la base del consentimiento de los Usuarios.
                 Esta Aplicación utiliza Rastreadores. Para obtener más información, los Usuarios pueden consultar la Política de Cookies.</p>
-            
+
             <h3>Más información para los usuarios</h3>
             <h4>Base jurídica del Tratamiento</h4>
             <p> El Titular podrá tratar los Datos Personales del Usuario, si se cumple una de las siguientes condiciones:
