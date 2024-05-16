@@ -75,10 +75,8 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
             resStatus = res.status;
             res.json().then((error) => {
                 handleServerResponse(resStatus, error.message);
-            })
-
-        })
-
+            });
+        });
     }
 
     const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +84,7 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
         setNewPassword({
             ...newPassword,
             [name]: value
-        })
+        });
     }
 
     const handleSubmitPassword = (event: React.FormEvent) => {
