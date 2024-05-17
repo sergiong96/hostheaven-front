@@ -34,7 +34,7 @@ dialog#delete-dialog {
         }
 
         >button[type=submit] {
-            padding: 0.5rem;
+            padding: 0.5rem 1rem;
             width: fit-content;
             margin: 0 auto;
             border-radius: 0.5rem;
@@ -43,9 +43,13 @@ dialog#delete-dialog {
             background-color: red;
             color: white;
             font-size: 1rem;
+            font-weight: bold;
+			 transition: all 0.2s;
 
             &:hover{
-                filter: brightness(2);
+                transition: all 0.2s;
+                box-shadow: 0px 0px 8px gray;
+                transform: scale(1.05);
             }
 
             +p{

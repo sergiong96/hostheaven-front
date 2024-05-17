@@ -37,7 +37,7 @@ function ModifyUser({ userData, userID }: { userData: UserData, userID: number }
             id_user: userID
         });
         setUserDataUpdated(userData);
-    }, [])
+    }, [userData]);
 
 
     const handleChangeUserData = (event: React.ChangeEvent<HTMLInputElement>) => {

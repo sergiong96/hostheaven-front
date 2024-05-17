@@ -85,7 +85,7 @@ function DeleteUserForm({ user_id, onClose }: DeleteUserFormProps) {
                 <form id="delete-account-form" onSubmit={handleSubmitRemove}>
                     <div>
                         <label htmlFor="passw">Introduzca su contraseña:</label>
-                        <input type="password" id="passw" onChange={handleChangePass} />
+                        <input type="password" id="passw" onChange={handleChangePass} required/>
                     </div>
                     <button type="submit">Eliminar mi cuenta ahora</button>
                     <p>*Esta acción no se puede revertir</p>

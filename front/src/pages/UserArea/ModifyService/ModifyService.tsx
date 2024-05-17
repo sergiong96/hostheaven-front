@@ -23,10 +23,11 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
             setUpdatedPackage({
                 id_user: userID,
                 id_trade: contractedPackage.id_trade,
-                hostingPackage: contractedPackage.hostingPackage
+                hostingPackage: contractedPackage.hostingPackage,
+                amount:contractedPackage.amount
             });
         }
-    }, [])
+    }, [contractedPackage]);
 
     const showEditDialog = () => {
         const dialog: HTMLDialogElement | null = document.querySelector("dialog#edit-service-dialog");
@@ -82,8 +83,8 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
             return res.json();
         }).then((data) => {
             handleServerResponse(resStatus, data.message);
-            setTimeout(() => { 
-                window.location.reload(); 
+            setTimeout(() => {
+                window.location.reload();
             }, 2000);
         }).catch((res: Response) => {
             resStatus = res.status;

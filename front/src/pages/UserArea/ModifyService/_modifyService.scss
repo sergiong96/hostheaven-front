@@ -63,7 +63,7 @@ article#edit-service {
         >button {
             cursor: pointer;
             border: none;
-            font-size: 1rem;
+            font-size: 1.5rem;
             padding: 0.3rem 0.5rem;
 
             &:hover {
@@ -80,6 +80,7 @@ article#edit-service {
             label {
                 display: inline-block;
                 width: 10rem;
+                font-weight: bold;
             }
 
             input {
@@ -91,11 +92,22 @@ article#edit-service {
                 font-size: 1rem;
                 margin-top: 1rem;
                 cursor: pointer;
+                width: 80%;
+                border: 1px solid gray;
+                border-radius: 0.5rem;
+                margin: 1rem auto 0rem;
             }
 
             button[type=submit] {
                 &:hover {
+                    color: white;
                     background-color: vars.$strong-red;
+                }
+            }
+
+            >button:not([type=submit]):last-of-type {
+                &:hover {
+                    background-color: gainsboro;
                 }
             }
         }
