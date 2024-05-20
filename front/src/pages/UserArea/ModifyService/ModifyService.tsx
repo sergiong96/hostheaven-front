@@ -176,7 +176,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
                     </dialog>
 
                     <dialog id="delete-service-dialog">
-                        <button type="button" onClick={closeDeleteDialog}>Cancelar</button>
+                        <button type="button" onClick={closeDeleteDialog}>X</button>
                         <form onSubmit={deleteService}>
                             <p>¿Seguro que desea eliminar su servicio activo?</p>
                             <button type="submit">Darse de baja</button>
