@@ -24,7 +24,7 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
                 id_user: userID,
                 id_trade: contractedPackage.id_trade,
                 hostingPackage: contractedPackage.hostingPackage,
-                amount:contractedPackage.amount
+                amount: contractedPackage.amount
             });
         }
     }, [contractedPackage]);
@@ -176,10 +176,10 @@ function ModifyService({ contractedPackage, userID }: { contractedPackage: Hosti
                     </dialog>
 
                     <dialog id="delete-service-dialog">
+                        <button type="button" onClick={closeDeleteDialog}>Cancelar</button>
                         <form onSubmit={deleteService}>
                             <p>¿Seguro que desea eliminar su servicio activo?</p>
                             <button type="submit">Darse de baja</button>
-                            <button type="button" onClick={closeDeleteDialog}>Cancelar</button>
                         </form>
                     </dialog>
                 </article>
