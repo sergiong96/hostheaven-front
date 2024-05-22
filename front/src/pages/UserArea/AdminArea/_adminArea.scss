@@ -97,8 +97,14 @@
         dialog#response-ticket-dialog {
 
             >button {
-                font-size: 1rem;
+                font-size: 1.5rem;
+                border: none;
                 cursor: pointer;
+
+                &:hover {
+                    background-color: gainsboro;
+                }
+
             }
 
             >form {
@@ -132,7 +138,7 @@
                     background-size: 100% 200%;
                     transition: all 0.5s;
 
-                    &:hover{
+                    &:hover {
                         background-position: 0 -100%;
                         transition: all 0.5s;
                         color: white;

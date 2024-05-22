@@ -16,12 +16,14 @@ function LogInForm({ onClose }) {
 
     const closeDialog = () => {
         const dialog = document.querySelector("dialog#logIn-dialog");
+        document.body.classList.remove("overflow");
         dialog.close();
         onClose();
     }
 
     const showDialog = () => {
         const dialog = document.querySelector("dialog#logIn-dialog");
+        document.body.classList.add("overflow");
         dialog.showModal();
     }
 
@@ -50,12 +52,11 @@ function LogInForm({ onClose }) {
             if (token) {
                 localStorage.setItem("sessionToken", token);
                 setLoginResponse("Iniciando sesión...");
+                document.body.classList.remove("overflow");
 
                 setTimeout(() => {
                     navigate("/userArea")
                 }, 2000);
-
-
             } else {
                 setLoginResponse("Credenciales incorrectas");
             }

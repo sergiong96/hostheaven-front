@@ -95,9 +95,11 @@ function AdminArea() {
             resStatus = res.status;
             return res.json();
         }).then((data) => {
-            handleServerResponse(resStatus, data.message);
             closeDialog();
-            window.location.reload();
+            handleServerResponse(resStatus, data.message);
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         }).catch((res: Response) => {
             resStatus = res.status;
             res.json().then((error) => {
